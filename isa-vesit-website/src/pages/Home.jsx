@@ -73,7 +73,22 @@ const Home = () => {
             <h2 className="hero-subtitle">AUTOMATION<span className="trademark">™</span></h2>
             
             <div className="cta-button">
-              <button className="explore-btn">Explore ISA</button>
+              <button className="explore-btn">
+                <span>Explore ISA</span>
+                <div className="btn-particles">
+                  <div className="particle"></div>
+                  <div className="particle"></div>
+                  <div className="particle"></div>
+                  <div className="particle"></div>
+                  <div className="particle"></div>
+                </div>
+                <div className="glitch-layers">
+                  <div className="glitch-layer"></div>
+                  <div className="glitch-layer"></div>
+                </div>
+                <div className="energy-field"></div>
+                <div className="holographic-overlay"></div>
+              </button>
             </div>
           </div>
           
