@@ -1,7 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ThreeScene from '../components/ThreeScene';
+import { Briefcase, Users, Cpu, History, ChevronLeft, ChevronRight } from 'lucide-react';
+import workshopImage from '../assets/images/workshop.png';
+
 
 const Home = () => {
+  const workshops = [
+    {
+      id: 1,
+      title: 'Web Animations',
+      imageSrc: workshopImage,
+      googleFormLink: 'https://forms.google.com/your-form-link-1'
+    },
+    {
+      id: 2,
+      title: 'ChatGPT Clone',
+      imageSrc: workshopImage,
+      googleFormLink: 'https://forms.google.com/your-form-link-2'
+    },
+    {
+      id: 3,
+      title: 'CTRL+ALT+DEBATE',
+      imageSrc: workshopImage,
+      googleFormLink: 'https://forms.google.com/your-form-link-3'
+    },
+    {
+      id: 4,
+      title: 'Digital Designing with Verilog',
+      imageSrc: workshopImage,
+      googleFormLink: 'https://forms.google.com/your-form-link-4'
+    },
+    {
+      id: 5,
+      title: 'Intro to Robotics',
+      imageSrc: workshopImage,
+      googleFormLink: 'https://forms.google.com/your-form-link-5'
+    },
+    {
+      id: 6,
+      title: '3D Printing Essentials',
+      imageSrc: workshopImage,
+      googleFormLink: 'https://forms.google.com/your-form-link-6'
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const itemsPerPage = 3;
+
+  const handleNext = () => {
+    const nextIndex = currentIndex + itemsPerPage;
+    // If next index is out of bounds, loop back to the start
+    setCurrentIndex(nextIndex >= workshops.length ? 0 : nextIndex);
+  };
+
+  const handlePrev = () => {
+    const prevIndex = currentIndex - itemsPerPage;
+    const lastPageIndex = Math.floor((workshops.length - 1) / itemsPerPage) * itemsPerPage;
+    // If previous index is less than 0, go to the last page
+    setCurrentIndex(prevIndex < 0 ? lastPageIndex : prevIndex);
+  };
+
   return (
     <div className="home">
       {/* Hero Section */}
@@ -9,16 +67,13 @@ const Home = () => {
         <div className="hero-container">
           <div className="hero-content">
             <div className="hero-badge">ISA - VESIT</div>
-            <h1 className="hero-title">SETTING STANDARD</h1>
-            <h2 className="hero-subtitle">FOR AUTOMATION</h2>
+            <h1 className="hero-title">SETTING</h1>
+            <h1 className="hero-title">STANDARD</h1>
+            <h1 className="hero-title">FOR</h1>
+            <h2 className="hero-subtitle">AUTOMATION<span className="trademark">™</span></h2>
             
-            <div className="about-card">
-              <h3 className="about-title">About US</h3>
-              <p className="about-text">
-                ISA-VESIT is an interdisciplinary organization in which professionals from Instrumentation, 
-                Electronics, Communications, Programming, Management and Control Design fields share a 
-                platform and contribute towards better functioning of the Industry and its Automation.
-              </p>
+            <div className="cta-button">
+              <button className="explore-btn">Explore ISA</button>
             </div>
           </div>
           
@@ -28,86 +83,71 @@ const Home = () => {
         </div>
       </section>
 
+      {/* About Us Section */}
+      <section className="about-us-section">
+        <div className="about-us-container">
+          <div className="about-us-card">
+            <h3 className="about-us-title">About ISA VESIT</h3>
+            <p className="about-us-text">
+              ISA VESIT, as the student council of Instrumentation department at VESIT, 
+              dedicated to festering knowledge and innovation in automation and 
+              control technologies.
+            </p>
+          </div>
+          <div className="stats-card">
+            <div className="stats-grid">
+              <div className="stat-item">
+                <Briefcase size={28} className="stat-icon" />
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Workshops</span>
+              </div>
+              <div className="stat-item">
+                <Users size={28} className="stat-icon" />
+                <span className="stat-number">70+</span>
+                <span className="stat-label">Council Members</span>
+              </div>
+              <div className="stat-item">
+                <Cpu size={28} className="stat-icon" />
+                <span className="stat-number">80+</span>
+                <span className="stat-label">Components</span>
+              </div>
+              <div className="stat-item">
+                <History size={28} className="stat-icon" />
+                <span className="stat-number">5</span>
+                <span className="stat-label">Years</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Workshops Section */}
       <section className="workshops-section">
-        <div className="workshops-container">
-          <div className="workshops-header">
-            <h2 className="workshops-title">UPCOMING WORKSHOP</h2>
-          </div>
-          
+        <h2 className="workshops-title">Upcoming Workshops</h2>
+        <div className="workshop-carousel">
+          <button onClick={handlePrev} className="carousel-nav prev">
+            <ChevronLeft size={48} />
+          </button>
           <div className="workshops-grid">
-            <div className="workshop-card">
-              <div className="workshop-image">
-                <div style={{ textAlign: 'center' }}>
-                  <h3 style={{ color: '#3b82f6', marginBottom: '0.5rem' }}>WEB ANIMATIONS</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.9rem' }}>WITH CSS & JS</p>
-                  <div style={{ 
-                    marginTop: '1rem', 
-                    padding: '0.5rem', 
-                    background: 'rgba(59, 130, 246, 0.1)', 
-                    borderRadius: '0.5rem',
-                    fontSize: '0.8rem'
-                  }}>
-                    Workshop Details:<br/>
-                    Date: 27th July 2024<br/>
-                    Time: 10 AM onwards<br/>
-                    QR Code for Registration
-                  </div>
+            {workshops.slice(currentIndex, currentIndex + itemsPerPage).map(workshop => (
+              <div key={workshop.id} className="workshop-card">
+                <div className="workshop-image-container">
+                  <img src={workshop.imageSrc} alt={workshop.title} className="workshop-image" />
+                </div>
+                <div className="workshop-button-container">
+                  <button 
+                    className="register-btn"
+                    onClick={() => window.open(workshop.googleFormLink, '_blank')}
+                  >
+                    Register
+                  </button>
                 </div>
               </div>
-              <div className="workshop-content">
-                <button className="workshop-btn">View Details</button>
-              </div>
-            </div>
-
-            <div className="workshop-card">
-              <div className="workshop-image">
-                <div style={{ textAlign: 'center' }}>
-                  <h3 style={{ color: '#f59e0b', marginBottom: '0.5rem' }}>ChatGPT</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Clone using Django</p>
-                  <div style={{ 
-                    marginTop: '1rem', 
-                    padding: '0.5rem', 
-                    background: 'rgba(245, 158, 11, 0.1)', 
-                    borderRadius: '0.5rem',
-                    fontSize: '0.8rem'
-                  }}>
-                    Register Now<br/>
-                    Limited Seats<br/>
-                    Contact: +91 XXXXX<br/>
-                    QR Code Available
-                  </div>
-                </div>
-              </div>
-              <div className="workshop-content">
-                <button className="workshop-btn">View Details</button>
-              </div>
-            </div>
-
-            <div className="workshop-card">
-              <div className="workshop-image">
-                <div style={{ textAlign: 'center' }}>
-                  <h3 style={{ color: '#10b981', marginBottom: '0.5rem' }}>CTRL + ALT + DEBATE</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Technical Debate Competition</p>
-                  <div style={{ 
-                    marginTop: '1rem', 
-                    padding: '0.5rem', 
-                    background: 'rgba(16, 185, 129, 0.1)', 
-                    borderRadius: '0.5rem',
-                    fontSize: '0.8rem'
-                  }}>
-                    Explore opportunities in<br/>
-                    Technical Discussions<br/>
-                    Register Now<br/>
-                    QR Code for Details
-                  </div>
-                </div>
-              </div>
-              <div className="workshop-content">
-                <button className="workshop-btn">View Details</button>
-              </div>
-            </div>
+            ))}
           </div>
+          <button onClick={handleNext} className="carousel-nav next">
+            <ChevronRight size={48} />
+          </button>
         </div>
       </section>
     </div>

@@ -1,5 +1,5 @@
 import React, { useRef, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
 // Futuristic VR Headset Model - Oculus Quest 2 style
@@ -7,16 +7,8 @@ const VRHeadset = () => {
   const groupRef = useRef();
   const { scene } = useGLTF('/vr_headset.glb'); 
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      // Gentle rotation and bobbing animation
-      groupRef.current.rotation.y += 0.003;
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
-    }
-  });
-
   return (
-    <group ref={groupRef} dispose={null} scale={1.5} position={[0, -0.3, 0]}>
+    <group ref={groupRef} dispose={null} scale={1.5} position={[0.25, 0, 0.7]} rotation={[0.1, 0.5, 0]}>
       <primitive object={scene} />
     </group>
   );
@@ -36,7 +28,7 @@ const ThreeScene = () => {
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas
-        camera={{ position: [0, 0.5, 2], fov: 60 }}
+        camera={{ position: [0, 0.2, 1.8], fov: 60 }}
         style={{ background: 'transparent' }}
       >
         {/* Advanced Lighting */}
@@ -61,7 +53,7 @@ const ThreeScene = () => {
           enableZoom={true}
           enablePan={false}
           enableRotate={true}
-          autoRotate={true}
+          autoRotate={false}
           autoRotateSpeed={0.5}
           maxPolarAngle={Math.PI / 1.8}
           minPolarAngle={Math.PI / 2.5}
