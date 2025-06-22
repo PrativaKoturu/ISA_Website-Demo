@@ -166,7 +166,7 @@ const Council = () => {
           position: 'Logistics Coordinator',
           image: '/assets/images/council/2024-25/SE/ronit_ghugwani.jpg',
           socials: {
-            linkedin: 'https://linkedin.com/in/ronit-ghugwani',
+            linkedin: 'https://linkedin.com/in/ronit-.ghugwani',
             github: 'https://github.com/ronit-ghugwani',
             email: 'ronit.ghugwani@example.com'
           }
@@ -244,7 +244,7 @@ const Council = () => {
   return (
     <div className="council-page">
 
-       {/* Faculty Advisor Section */}
+      {/* Faculty Advisor Section */}
       <section className="faculty-section">
         <div className="faculty-container">
           <h2 className="faculty-title">Faculty Advisor</h2>
@@ -264,107 +264,77 @@ const Council = () => {
               <p className="faculty-designation">Faculty Advisor</p>
               <p className="faculty-department">Department of Instrumentation Engineering</p>
             </div>
-          </div>
+             </div>
         </div>
       </section>
 
-      {/* Navigation Section */}
-      <section className="council-nav-section">
-        <div className="council-nav-container">
-          {/* Year Selector */}
-          <div className="year-selector">
-            <h3 className="selector-title">Academic Year</h3>
-            <div className="year-buttons">
-              {academicYears.map(year => (
-                <button
-                  key={year}
-                  className={`year-btn ${selectedYear === year ? 'active' : ''}`}
-                  onClick={() => setSelectedYear(year)}
-                >
-                  {year}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Section Selector */}
-          <div className="section-selector">
-            <h3 className="selector-title">Year Section</h3>
-            <div className="section-buttons">
-              {sections.map(section => (
-                <button
-                  key={section}
-                  className={`section-btn ${selectedSection === section ? 'active' : ''}`}
-                  onClick={() => setSelectedSection(section)}
-                >
-                  {section}
-                </button>
-              ))}
-            </div>
+      <div className="council-filters">
+        <div className="filter-group">
+          <h3 className="filter-title">Academic Year</h3>
+          <div className="segmented-control">
+            {academicYears.map(year => (
+              <button
+                key={year}
+                className={`control-btn ${selectedYear === year ? 'active' : ''}`}
+                onClick={() => setSelectedYear(year)}
+              >
+                <span>{year}</span>
+              </button>
+            ))}
           </div>
         </div>
-      </section>
+        <div className="filter-group">
+          <h3 className="filter-title">Year Section</h3>
+          <div className="segmented-control">
+            {sections.map(section => (
+              <button
+                key={section}
+                className={`control-btn ${selectedSection === section ? 'active' : ''}`}
+                onClick={() => setSelectedSection(section)}
+              >
+                <span>{section}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      {/* Council Members Section */}
+      {/* Council Members Grid */}
       <section className="council-members-section">
         <div className="council-members-container">
           <div className="section-header">
             <h2 className="section-title">
-              {selectedYear} - {selectedSection} Council
+              {selectedSection} Council <span className="year-tag">({selectedYear})</span>
             </h2>
             <div className="member-count">
-              {currentCouncilMembers.length} Member{currentCouncilMembers.length !== 1 ? 's' : ''}
+              <span className="count-badge">{currentCouncilMembers.length}</span> Members
             </div>
           </div>
-
           {currentCouncilMembers.length > 0 ? (
             <div className="members-grid">
-              {currentCouncilMembers.map(member => (
+              {currentCouncilMembers.map((member) => (
                 <div key={member.id} className="member-card">
                   <div className="member-image-container">
-                    <img 
-                      src={member.image} 
-                      alt={member.name}
-                      className="member-image"
-                      onError={(e) => {
-                        e.target.src = '/assets/images/placeholder-avatar.jpg';
-                      }}
-                    />
+                    <img src={member.image} alt={member.name} className="member-image" />
                     <div className="member-overlay">
                       <div className="social-links">
                         {member.socials.linkedin && (
-                          <button 
-                            className="social-btn"
-                            onClick={() => handleSocialClick(member.socials.linkedin)}
-                            title="LinkedIn"
-                          >
+                          <button onClick={() => handleSocialClick(member.socials.linkedin)} className="social-btn">
                             <Linkedin size={20} />
                           </button>
                         )}
                         {member.socials.github && (
-                          <button 
-                            className="social-btn"
-                            onClick={() => handleSocialClick(member.socials.github)}
-                            title="GitHub"
-                          >
+                          <button onClick={() => handleSocialClick(member.socials.github)} className="social-btn">
                             <Github size={20} />
                           </button>
                         )}
                         {member.socials.instagram && (
-                          <button 
-                            className="social-btn"
-                            onClick={() => handleSocialClick(member.socials.instagram)}
-                            title="Instagram"
-                          >
+                          <button onClick={() => handleSocialClick(member.socials.instagram)} className="social-btn">
                             <Instagram size={20} />
                           </button>
                         )}
                         {member.socials.email && (
-                          <button 
-                            className="social-btn"
-                            onClick={() => handleEmailClick(member.socials.email)}
-                            title="Email"
-                          >
+                          <button onClick={() => handleEmailClick(member.socials.email)} className="social-btn">
                             <Mail size={20} />
                           </button>
                         )}
@@ -381,8 +351,8 @@ const Council = () => {
           ) : (
             <div className="no-members">
               <div className="no-members-content">
-                <h3>No Council Members Found</h3>
-                <p>Council data for {selectedYear} - {selectedSection} will be updated soon.</p>
+                <h3>No council members found</h3>
+                <p>Please select a different year or section.</p>
               </div>
             </div>
           )}
