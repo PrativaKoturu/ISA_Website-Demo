@@ -187,31 +187,9 @@ const Initiatives = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="initiatives-hero-section">
-        <div className="initiatives-hero-container">
-          
-          <h1 className="initiatives-hero-title">
-            <span className="title-line">INNOVATIVE</span>
-            <span className="title-line">INITIATIVES</span>
-          </h1>
-          <p className="initiatives-hero-subtitle">
-            Empowering students through cutting-edge programs, advanced resources, and comprehensive support systems designed to foster growth, learning, and excellence in engineering.
-          </p>
-          <div className="hero-stats-preview">
-            <div className="preview-stat">
-              <Target size={20} />
-              <span>11+ Programs</span>
-            </div>
-            <div className="preview-stat">
-              <Rocket size={20} />
-              <span>Innovation Hub</span>
-            </div>
-            <div className="preview-stat">
-              <Zap size={20} />
-              <span>Future Ready</span>
-            </div>
-          </div>
-        </div>
+      <section className="hero" id="initiatives">
+        <h1>INNOVATIVE INITIATIVES</h1>
+        <p>Empowering students through cutting-edge programs, advanced resources, and comprehensive support systems designed to foster growth, learning, and excellence in engineering.</p>
       </section>
 
       {/* Initiatives Grid */}

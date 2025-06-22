@@ -26,7 +26,7 @@ const ContactUs = () => {
       linkedin: 'https://linkedin.com/in/charchit-sahoo'
     },
     {
-      name: 'Aditya\nRege',
+      name: 'Aditya Rege',
       position: 'Senior PRO',
       phone: '+91 XXXXX XXXXX',
       email: 'aditya@gmail.com',
@@ -131,18 +131,9 @@ const ContactUs = () => {
       </div>
 
       {/* Header Section */}
-      <section className="contact-header-section">
-        <div className="contact-container">
-          <div className="contact-header-content">
-            <h1 className="contact-header-title">
-              <span className="contact-title-line">CONTACT</span>
-              <span className="contact-title-line">US</span>
-            </h1>
-            <p className="contact-header-subtitle">
-              Connect with our council members and get involved with ISA-VESIT's mission to set standards for automation
-            </p>
-          </div>
-        </div>
+      <section className="hero" id="contact-us">
+        <h1>CONTACT US</h1>
+        <p>Connect with our council members and get involved with ISA-VESIT's mission to set standards for automation. Reach out to us for any queries, collaborations, or to learn more about our initiatives.</p>
       </section>
 
       {/* Council Members Section */}
