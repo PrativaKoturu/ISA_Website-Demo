@@ -16,7 +16,7 @@ const Home = () => {
       setLoading(true);
       const today = new Date().toISOString().split('T')[0];
       const { data, error } = await supabase
-        .from('workshops')
+        .from('workshop')
         .select('*')
         .gte('workshop_date', today)
         .order('workshop_date', { ascending: true });
