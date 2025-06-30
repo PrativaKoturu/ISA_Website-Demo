@@ -1,62 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ThreeScene from '../components/ThreeScene';
 import { Briefcase, Users, Cpu, History, ChevronLeft, ChevronRight } from 'lucide-react';
 import workshopImage from '../assets/images/workshop.png';
+import { supabase } from '../supabaseClient';
 
 
 const Home = () => {
-  const workshops = [
-    {
-      id: 1,
-      title: 'Web Animations',
-      imageSrc: workshopImage,
-      googleFormLink: 'https://forms.google.com/your-form-link-1'
-    },
-    {
-      id: 2,
-      title: 'ChatGPT Clone',
-      imageSrc: workshopImage,
-      googleFormLink: 'https://forms.google.com/your-form-link-2'
-    },
-    {
-      id: 3,
-      title: 'CTRL+ALT+DEBATE',
-      imageSrc: workshopImage,
-      googleFormLink: 'https://forms.google.com/your-form-link-3'
-    },
-    {
-      id: 4,
-      title: 'Digital Designing with Verilog',
-      imageSrc: workshopImage,
-      googleFormLink: 'https://forms.google.com/your-form-link-4'
-    },
-    {
-      id: 5,
-      title: 'Intro to Robotics',
-      imageSrc: workshopImage,
-      googleFormLink: 'https://forms.google.com/your-form-link-5'
-    },
-    {
-      id: 6,
-      title: '3D Printing Essentials',
-      imageSrc: workshopImage,
-      googleFormLink: 'https://forms.google.com/your-form-link-6'
-    },
-  ];
-
+  const [workshops, setWorkshops] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;
 
+  useEffect(() => {
+    async function fetchWorkshops() {
+      setLoading(true);
+      const today = new Date().toISOString().split('T')[0];
+      const { data, error } = await supabase
+        .from('workshops')
+        .select('*')
+        .gte('workshop_date', today)
+        .order('workshop_date', { ascending: true });
+      if (!error) setWorkshops(data || []);
+      setLoading(false);
+    }
+    fetchWorkshops();
+  }, []);
+
   const handleNext = () => {
     const nextIndex = currentIndex + itemsPerPage;
-    // If next index is out of bounds, loop back to the start
     setCurrentIndex(nextIndex >= workshops.length ? 0 : nextIndex);
   };
 
   const handlePrev = () => {
     const prevIndex = currentIndex - itemsPerPage;
     const lastPageIndex = Math.floor((workshops.length - 1) / itemsPerPage) * itemsPerPage;
-    // If previous index is less than 0, go to the last page
     setCurrentIndex(prevIndex < 0 ? lastPageIndex : prevIndex);
   };
 
@@ -139,31 +116,37 @@ const Home = () => {
       {/* Workshops Section */}
       <section className="workshops-section">
         <h2 className="workshops-title">Upcoming Workshops</h2>
-        <div className="workshop-carousel">
-          <button onClick={handlePrev} className="carousel-nav prev">
-            <ChevronLeft size={48} />
-          </button>
-          <div className="workshops-grid">
-            {workshops.slice(currentIndex, currentIndex + itemsPerPage).map(workshop => (
-              <div key={workshop.id} className="workshop-card">
-                <div className="workshop-image-container">
-                  <img src={workshop.imageSrc} alt={workshop.title} className="workshop-image" />
+        {loading ? (
+          <div>Loading workshops...</div>
+        ) : workshops.length === 0 ? (
+          <div>No upcoming workshops found.</div>
+        ) : (
+          <div className="workshop-carousel">
+            <button onClick={handlePrev} className="carousel-nav prev">
+              <ChevronLeft size={48} />
+            </button>
+            <div className="workshops-grid">
+              {workshops.slice(currentIndex, currentIndex + itemsPerPage).map(workshop => (
+                <div key={workshop.id} className="workshop-card">
+                  <div className="workshop-image-container">
+                    <img src={workshop.image_url} alt={workshop.workshop_name} className="workshop-image" />
+                  </div>
+                  <div className="workshop-button-container">
+                    <button 
+                      className="register-btn"
+                      onClick={() => window.open(workshop.registration_link, '_blank')}
+                    >
+                      Register
+                    </button>
+                  </div>
                 </div>
-                <div className="workshop-button-container">
-                  <button 
-                    className="register-btn"
-                    onClick={() => window.open(workshop.googleFormLink, '_blank')}
-                  >
-                    Register
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <button onClick={handleNext} className="carousel-nav next">
+              <ChevronRight size={48} />
+            </button>
           </div>
-          <button onClick={handleNext} className="carousel-nav next">
-            <ChevronRight size={48} />
-          </button>
-        </div>
+        )}
       </section>
     </div>
   );
