@@ -3,10 +3,9 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
 // Futuristic VR Headset Model - Oculus Quest 2 style
-const VRHeadset = () => {
+const VRHeadset = ({ onLoaded }) => {
   const groupRef = useRef();
-  const { scene } = useGLTF('/vr_headset.glb'); 
-
+  const { scene } = useGLTF('/vr_headset.glb', true, undefined, onLoaded);
   return (
     <group ref={groupRef} dispose={null} scale={1.5} position={[0.25, 0, 0.7]} rotation={[0.1, 0.5, 0]}>
       <primitive object={scene} />
@@ -24,7 +23,7 @@ const Loader = () => {
   );
 };
 
-const ThreeScene = () => {
+const ThreeScene = ({ onLoaded }) => {
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas
@@ -45,7 +44,7 @@ const ThreeScene = () => {
         
         {/* 3D Model with Suspense */}
         <Suspense fallback={<Loader />}>
-          <VRHeadset />
+          <VRHeadset onLoaded={onLoaded} />
         </Suspense>
         
         {/* Controls */}

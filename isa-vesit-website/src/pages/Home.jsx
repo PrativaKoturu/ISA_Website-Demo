@@ -8,6 +8,7 @@ import { supabase } from '../supabaseClient';
 const Home = () => {
   const [workshops, setWorkshops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [vrLoading, setVrLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;
 
@@ -39,6 +40,14 @@ const Home = () => {
 
   return (
     <div className="home">
+      {vrLoading && (
+        <div className="vr-loader-overlay">
+          <div className="vr-loader">
+            <div className="vr-spinner"></div>
+            <div className="vr-loader-text">Loading VR Experience...</div>
+          </div>
+        </div>
+      )}
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-container">
@@ -70,7 +79,7 @@ const Home = () => {
           </div>
           
           <div className="hero-3d">
-            <ThreeScene />
+            <ThreeScene onLoaded={() => setVrLoading(false)} />
           </div>
         </div>
       </section>
