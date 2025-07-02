@@ -66,9 +66,6 @@ import beAndBeyondImage from '../assets/images/workshopeven/BE_and_Beyond.png';
 import imageprocessing from '../assets/images/workshopeven/21IPworkshop.jpeg'; // Matches 21IPworkshop.jpeg
 import tqgImage from '../assets/images/workshopeven/TGQ.jpg'; // Added new import for TQG.jpg
 
-// This placeholder is no longer strictly needed if all images are local, but can be kept for safety.
-const sharedImagePlaceholder = "https://images.unsplash.com/photo-1531265726475-52ad60219627?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGJhY2tncm91bmQlMjBwbGFpbnxlbnwwfHwwfHx8MA%3D%3D";
-
 
 // --- Embedded CSS Styles (NO CHANGE TO STYLES) ---
 const eventsPageStyles = `
@@ -81,9 +78,10 @@ const eventsPageStyles = `
 
 /* Body style */
 body {
-  min-height: 100vh;
-  background-color: #0f172a;
-  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background-color: #0f172a;
+  font-family: 'Montserrat', sans-serif; /* Changed font */
+  color: #e2e8f0; /* Changed base text color */
 }
 
 /* Main events page container */
@@ -690,7 +688,7 @@ const allWorkshops = [
     year: 2024
   },
     {
-    title: "Sketch It Out (Alternative)", // Added (Alternative) to differentiate
+    title: "Sketch It Out ", 
     img: sketchItOut_1,
     theme: "orange",
     link: "#",
@@ -699,7 +697,7 @@ const allWorkshops = [
     year: 2024
   },
     {
-    title: "Article Writing (Alternative)", // Added (Alternative) to differentiate
+    title: "Article Writing ", 
     img: articleWriting_1,
     theme: "orange",
     link: "#",
@@ -708,7 +706,7 @@ const allWorkshops = [
     year: 2024
   },
     {
-    title: "Quadrangle (TQG)", // Differentiated this one as TQG
+    title: "Quadrangle (TQG)", 
     img: tqgImage,
     theme: "orange",
     link: "#",
@@ -798,7 +796,7 @@ const allWorkshops = [
     year: 2024
   },
     {
-    title: "Bebeyond Workshop (2021)", // Differentiated
+    title: "Bebeyond Workshop (2021)", 
     img: bebeyond21Image,
     theme: "orange",
     link: "#",
@@ -852,7 +850,7 @@ const allWorkshops = [
     year: 2024
   },
     {
-    title: "Data Analytics Workshop (Alt)", // Differentiated
+    title: "Data Analytics Workshop", 
     img: dataAnaImage,
     theme: "orange",
     link: "#",
