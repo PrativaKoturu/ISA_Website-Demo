@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import printerimg from "../assets/images/isaprinter.png";
 
-// 3D Glow Box Wrapper with hover tilt effect and edge glow
+
 const HudBox = ({ children, style = {}, ...props }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -11,8 +11,8 @@ const HudBox = ({ children, style = {}, ...props }) => {
         ...hudBoxStyle,
         transform: hovered ? "rotateX(4deg) rotateY(-4deg)" : "rotateX(2deg) rotateY(2deg)",
         boxShadow: hovered
-          ? "0 0 15px #3b82f6, 0 0 30px #3b82f655, 8px 8px 20px rgba(0,0,0,0.6), inset 0 0 6px #3b82f6"
-          : "0 0 10px #3b82f6, 0 0 25px #3b82f655, 5px 5px 15px rgba(0,0,0,0.5), inset 0 0 5px #3b82f6",
+          ? "8px 8px 20px rgba(0,0,0,0.6), inset 0 0 8px rgba(96, 165, 250, 0.4)" 
+          : "5px 5px 15px rgba(0,0,0,0.5), inset 0 0 5px rgba(96, 165, 250, 0.2)", 
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         ...style,
       }}
@@ -21,23 +21,6 @@ const HudBox = ({ children, style = {}, ...props }) => {
       onMouseLeave={() => setHovered(false)}
       {...props}
     >
-      {/* Glowing edge overlay */}
-      <div
-        style={{
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          borderRadius: "10px",
-          background: "linear-gradient(135deg, #3b82f6, #60a5fa, #3b82f6)",
-          opacity: hovered ? 0.6 : 0,
-          filter: "blur(15px)",
-          zIndex: -1,
-          transition: "opacity 0.4s ease",
-        }}
-      />
       {children}
     </div>
   );
@@ -58,20 +41,20 @@ const ThreeDPrinterPortal = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#0f172a", color: "#fff", padding: "2rem", fontFamily: "'Orbitron', sans-serif" }}>
+    <div style={{ backgroundColor: "#0f172a", color: "#fff", padding: "2rem", fontFamily: "sans-serif" }}>
       <h1
         style={{
           textAlign: "center",
           fontSize: "2rem",
-          margin: "3rem 0 2rem",
+          margin: "6rem 0 2rem",
           color: "#60a5fa",
-          textShadow: "0 0 10px #3b82f6",
+          textShadow: "none",
         }}
       >
         3-D PRINTING PORTAL
       </h1>
 
-      {/* Top Section */}
+    
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "2rem" }}>
         <div
           style={{ flex: "1 1 300px", textAlign: "center", perspective: "1000px" }}
@@ -92,10 +75,18 @@ const ThreeDPrinterPortal = () => {
 
         <HudBox style={{ flex: "1 1 350px", justifyContent: "center" }}>
           <div style={{ padding: "1.5rem", textAlign: "center" }}>
-            <h2 style={{ fontSize: "1rem", marginBottom: "0.5rem", letterSpacing: "1.5px", color: "#60a5fa" }}>
+            <h2
+              style={{
+                fontSize: "1.5rem",
+                marginBottom: "0.5rem",
+                letterSpacing: "1.5px",
+                color: "#60a5fa",
+                textShadow: "none",
+              }}
+            >
               IMAGINATION TO REALITY
             </h2>
-            <p style={{ fontSize: "0.9rem", color: "#cbd5e1", lineHeight: "1.6" }}>
+            <p style={{ fontSize: "1.05rem", color: "#cbd5e1", lineHeight: "1.6" }}> {/* Increased font size here */}
               <strong>ISA-VESIT’s 3D Printer</strong>, inaugurated on <strong>Jan 14, 2019</strong>, turns virtual ideas
               into real models—empowering students to learn, analyze, and innovate hands-on.
             </p>
@@ -103,7 +94,7 @@ const ThreeDPrinterPortal = () => {
         </HudBox>
       </div>
 
-      {/* Form & Guidelines */}
+ 
       <div
         style={{
           marginTop: "3rem",
@@ -114,33 +105,33 @@ const ThreeDPrinterPortal = () => {
           alignItems: "flex-start",
         }}
       >
-        {/* Form */}
-        <HudBox style={{ flex: "1 1 320px", padding: "1.5rem" }}>
-          <h3 style={hudHeading}>Personal Details</h3>
 
-          <label>Name</label>
+        <HudBox style={{ flex: "1 1 320px", padding: "1.5rem" }}>
+          <h3 style={{ ...hudHeading, fontSize: "1.4rem", textShadow: "none" }}>Personal Details</h3>
+
+          <label style={{ fontSize: "0.95rem" }}>Name</label>
           <input type="text" placeholder="e.g. Firstname Lastname" required style={inputStyle} />
 
-          <label>Email</label>
+          <label style={{ fontSize: "0.95rem" }}>Email</label>
           <input type="email" placeholder="VES email id" required style={inputStyle} />
 
-          <label>Phone Number</label>
+          <label style={{ fontSize: "0.95rem" }}>Phone Number</label>
           <input type="tel" placeholder="e.g. 9999999999" required style={inputStyle} />
 
-          <h3 style={{ marginTop: "2rem", marginBottom: "1rem", textAlign: "center", color: "#60a5fa" }}>
+          <h3 style={{ marginTop: "2rem", marginBottom: "1rem", textAlign: "center", color: "#60a5fa", fontSize: "1.4rem", textShadow: "none" }}>
             3D Printing Specifications
           </h3>
 
-          <label>Infill %</label>
+          <label style={{ fontSize: "0.95rem" }}>Infill %</label>
           <input type="number" min="0" max="100" placeholder="Preferred: 15%" style={inputStyle} />
 
-          <label>Estimated Time (hrs)</label>
+          <label style={{ fontSize: "0.95rem" }}>Estimated Time (hrs)</label>
           <input type="text" placeholder="Time in Hours" style={inputStyle} />
 
-          <label>Infill Type</label>
+          <label style={{ fontSize: "0.95rem" }}>Infill Type</label>
           <input type="text" placeholder="Type" style={inputStyle} />
 
-          <label>Resolution</label>
+          <label style={{ fontSize: "0.95rem" }}>Resolution</label>
           <select style={inputStyle}>
             <option>Select</option>
             <option>Low</option>
@@ -148,7 +139,7 @@ const ThreeDPrinterPortal = () => {
             <option>High</option>
           </select>
 
-          <label>Color</label>
+          <label style={{ fontSize: "0.95rem" }}>Color</label>
           <select style={inputStyle}>
             <option>Select</option>
             <option>White</option>
@@ -156,18 +147,18 @@ const ThreeDPrinterPortal = () => {
             <option>Blue</option>
           </select>
 
-          <label>Any Extra Suggestion</label>
+          <label style={{ fontSize: "0.95rem" }}>Any Extra Suggestion</label>
           <input type="text" placeholder="e.g. I want 5 copies" style={inputStyle} />
 
-          <label>Job File</label>
+          <label style={{ fontSize: "0.95rem" }}>Job File</label>
           <input type="file" style={inputFileStyle} />
 
-          <button type="submit" style={submitButton}>Submit</button>
+          <button type="submit" style={{ ...submitButton, fontWeight: "600" }}>Submit</button>
         </HudBox>
 
-        {/* Guidelines */}
+
         <HudBox style={{ flex: "1 1 300px", padding: "1.5rem" }}>
-          <h3 style={hudHeading}>GUIDELINES</h3>
+          <h3 style={{ ...hudHeading, fontSize: "1.4rem", textShadow: "none" }}>GUIDELINES</h3>
           <ol style={{ lineHeight: "1.8", fontSize: "0.9rem", paddingLeft: "1rem" }}>
             <li>
               <strong>File Format</strong>
@@ -196,18 +187,19 @@ const ThreeDPrinterPortal = () => {
   );
 };
 
-// Glow Box Style
+
 const hudBoxStyle = {
   position: "relative",
-  backgroundColor: "#0f172a",
+  backgroundColor: "#1a202c", 
   padding: "1.5rem",
   color: "#fff",
-  clipPath:
-    "polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px)",
-  border: "2px solid #3b82f6",
-  backgroundImage: `linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.03) 75%, transparent 75%, transparent)`,
-  backgroundSize: "40px 40px",
-  fontFamily: "'Orbitron', sans-serif",
+ 
+  clipPath: "polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%)",
+  border: "2px solid #4a90e2", 
+
+  backgroundImage: `repeating-linear-gradient(-45deg, rgba(74, 144, 226, 0.05) 0px, rgba(74, 144, 226, 0.05) 2px, transparent 2px, transparent 10px)`,
+  backgroundSize: "20px 20px", 
+  fontFamily: "sans-serif",
   perspective: "800px",
   transformStyle: "preserve-3d",
   willChange: "transform",
@@ -216,45 +208,43 @@ const hudBoxStyle = {
   overflow: "hidden",
 };
 
-// Heading Style
+
 const hudHeading = {
-  fontSize: "1.2rem",
+  fontSize: "1.2rem", 
   marginBottom: "1.5rem",
   textAlign: "center",
   color: "#60a5fa",
-  textShadow: "0 0 8px #3b82f6",
 };
 
-// Input Fields
+
 const inputStyle = {
   width: "100%",
   padding: "0.5rem",
   margin: "0.5rem 0 1rem",
   borderRadius: "0.4rem",
-  border: "1px solid #3b82f6",
-  backgroundColor: "#1e293b",
+  border: "1px solid #4a90e2", 
+  backgroundColor: "#0f172a", 
   color: "#fff",
 };
 
-// File Upload
+
 const inputFileStyle = {
   marginBottom: "1rem",
-  backgroundColor: "#1e293b",
+  backgroundColor: "#0f172a", 
   borderRadius: "4px",
   color: "#fff",
-  border: "1px solid #3b82f6",
+  border: "1px solid #4a90e2", 
   padding: "0.4rem",
   width: "100%",
 };
 
-// Submit Button
 const submitButton = {
   width: "100%",
   padding: "0.6rem",
   backgroundColor: "#3b82f6",
   border: "none",
   borderRadius: "0.5rem",
-  fontWeight: "bold",
+  fontWeight: "bold", 
   cursor: "pointer",
   color: "#fff",
 };
