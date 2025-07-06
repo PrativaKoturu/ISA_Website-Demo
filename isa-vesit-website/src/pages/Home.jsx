@@ -50,7 +50,7 @@ const Home = () => {
         <div className={`vr-loader-overlay ${!vrLoading ? 'fade-out' : ''}`}>
           <div className="vr-loader">
             <div className="vr-spinner"></div>
-            <div className="vr-loader-text">Loading VR Experience...</div>
+            <div className="vr-loader-text">Loading ISA-VESIT Website...</div>
           </div>
         </div>
       )}
