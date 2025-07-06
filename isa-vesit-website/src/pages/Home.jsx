@@ -50,7 +50,7 @@ const Home = () => {
         <div className={`vr-loader-overlay ${!vrLoading ? 'fade-out' : ''}`}>
           <div className="vr-loader">
             <div className="vr-spinner"></div>
-            <div className="vr-loader-text">Loading VR Experience...</div>
+            <div className="vr-loader-text">Loading ISA-VESIT Website...</div>
           </div>
         </div>
       )}
@@ -59,10 +59,10 @@ const Home = () => {
         <div className="hero-container">
           <div className="hero-content">
             <div className="hero-badge">ISA - VESIT</div>
-            <h1 className="hero-title">SETTING</h1>
-            <h1 className="hero-title">STANDARD</h1>
-            <h1 className="hero-title">FOR</h1>
-            <h2 className="hero-subtitle">AUTOMATION<span className="trademark">™</span></h2>
+            <h1 className="hero-title gradient-headline">SETTING</h1>
+            <h1 className="hero-title gradient-headline">STANDARD</h1>
+            <h1 className="hero-title gradient-headline">FOR</h1>
+            <h2 className="hero-subtitle gradient-headline">AUTOMATION<span className="trademark">™</span></h2>
             
             <div className="cta-button">
               <button className="explore-btn">
@@ -96,13 +96,15 @@ const Home = () => {
           <div className="about-us-card">
             <h3 className="about-us-title">About ISA VESIT</h3>
             <p className="about-us-text">
-              ISA VESIT, as the student council of Instrumentation department at VESIT, 
-              dedicated to festering knowledge and innovation in automation and 
-              control technologies.
+              ISA-VESIT is an interdisciplinary organization in which professionals from Instrumentation, Electronics, Communications, Programming, Management and Control Design fields share a platform and contribute towards better functioning of the Industry and its Automation.
+              <br /><br />
+              Founded in 1945, the International Society of Automation is a leading, global non-profit organization with more than 40,000 members and 400,000 customers worldwide.
+              <br /><br />
+              ISA-VESIT is the student section of ISA International that comes under the ISA Maharashtra section. ISA-VESIT aims to bridge the gap between student community and industry by adding to the technical and industrial aspects of students with a vision of advancing technical competence by connecting the automation community to achieve operational excellence. We conduct workshops to enlighten our students with technical knowledge and make them impart it on day-to-day life practical applications so as to make the most out of theoretical wisdom.
             </p>
           </div>
           <div className="stats-card">
-            <div className="stats-grid">
+            <div className="stats-grid-vertical">
               <div className="stat-item">
                 <Briefcase size={28} className="stat-icon" />
                 <span className="stat-number">50+</span>
@@ -144,14 +146,38 @@ const Home = () => {
               {workshops.slice(currentIndex, currentIndex + itemsPerPage).map(workshop => (
                 <div key={workshop.id} className="workshop-card">
                   <div className="workshop-image-container">
-                    <img src={workshop.image_url} alt={workshop.workshop_name} className="workshop-image" />
+                    <img 
+                      src={workshop.feature_image_url} 
+                      alt={workshop.workshop_name} 
+                      className="workshop-image"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/300x200/1e293b/60a5fa?text=Workshop';
+                      }}
+                    />
+                  </div>
+                  <div className="workshop-content">
+                    <h3 className="workshop-name">{workshop.workshop_name}</h3>
+                    {workshop.description && (
+                      <p className="workshop-description">
+                        {workshop.description.length > 100 
+                          ? `${workshop.description.substring(0, 100)}...` 
+                          : workshop.description}
+                      </p>
+                    )}
+                    <div className="workshop-date">
+                      {new Date(workshop.workshop_date).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </div>
                   </div>
                   <div className="workshop-button-container">
                     <button 
                       className="register-btn"
                       onClick={() => window.open(workshop.registration_link, '_blank')}
                     >
-                      Register
+                      Register Now
                     </button>
                   </div>
                 </div>

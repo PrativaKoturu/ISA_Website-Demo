@@ -138,7 +138,7 @@ const Events = () => {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
-      max-width: 1200px; /* Keep grid within 1200px or adjust if needed for wider content */
+      max-width: 1300px; /* Keep grid within 1200px or adjust if needed for wider content */
       margin: 0 auto;
     }
 
@@ -202,6 +202,113 @@ const Events = () => {
 
     .action-button:hover {
       background-color: #2563eb;
+    }
+
+    /* Modal styles */
+    .workshop-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .workshop-modal-content {
+      background-color: #1e293b;
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      color: #e2e8f0;
+    }
+
+    .workshop-modal-close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: color 0.2s ease;
+    }
+
+    .workshop-modal-close-button:hover {
+      color: #ef4444;
+    }
+
+    .modal-workshop-title {
+      color: #60a5fa;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .modal-main-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-workshop-date {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+      justify-content: center;
+    }
+
+    .modal-workshop-description {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .modal-event-images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .modal-event-image {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .modal-event-image:hover {
+      transform: scale(1.05);
+    }
+
+    .message-box {
+      text-align: center;
+      padding: 2rem;
+      background-color: #1e293b;
+      border-radius: 0.5rem;
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+
+    .error-message {
+      background-color: #7f1d1d;
+      color: #fecaca;
     }
 
     .image-count-badge {
@@ -606,6 +713,20 @@ const Events = () => {
                   ))}
                 </div>
               </>
+            )}
+
+            {selectedWorkshop.registration_link && (
+              <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <a
+                  href={selectedWorkshop.registration_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="action-button"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                >
+                  Register Now <ExternalLink size={16} />
+                </a>
+              </div>
             )}
           </div>
         </div>

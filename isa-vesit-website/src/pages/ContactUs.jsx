@@ -181,7 +181,7 @@ const ContactUs = () => {
           <div className="banner-content">
             <h2 className="banner-title">Join ISA-VESIT</h2>
             <p className="banner-text">Planning to join ISA-VESIT? Get all the information you need about membership!</p>
-            <p className="banner-contact">Contact xyz zyz for membership details</p>
+            <p className="banner-contact">Contact us for membership details</p>
           </div>
         </div>
       </section>
