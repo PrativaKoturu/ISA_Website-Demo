@@ -6,6 +6,8 @@ import devIconImg from "../assets/images/dev.png";
 import isaprinterImg from "../assets/images/isaprinter.png";
 import isaLogoImg from "../assets/images/ISA-VESIT_Logo.png";
 import kaustubhImg from "../assets/images/kausthubh.png";
+import charchitImg from "../assets/images/charchit1.png";
+import regeImg from "../assets/images/rege1.png";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -150,7 +152,12 @@ const ContactUs = () => {
             {councilMembers.map((member, index) => (
               <ProfileCard
                 key={index}
-                avatarUrl={member.name === 'Kaustubh Natalkar' ? kaustubhImg : facultyAdvisorImg}
+                avatarUrl={
+                  member.name === 'Kaustubh Natalkar' ? kaustubhImg :
+                  member.name === 'Charchit Sahoo' ? charchitImg :
+                  member.name === 'Aditya Rege' ? regeImg :
+                  facultyAdvisorImg
+                }
                 miniAvatarUrl={isaLogoImg}
                 iconUrl={devIconImg}
                 grainUrl={isaprinterImg}
