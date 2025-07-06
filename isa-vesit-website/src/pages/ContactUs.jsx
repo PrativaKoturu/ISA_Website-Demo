@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Phone, Linkedin, Send, Check, AlertTriangle } from 'lucide-react';
+import ProfileCard from "../blocks/Components/ProfileCard/ProfileCard";
+import facultyAdvisorImg from "../assets/images/facultyadvisor1.png";
+import devIconImg from "../assets/images/dev.png";
+import isaprinterImg from "../assets/images/isaprinter.png";
+import isaLogoImg from "../assets/images/ISA-VESIT_Logo.png";
+import kaustubhImg from "../assets/images/kausthubh.png";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -142,41 +148,21 @@ const ContactUs = () => {
           <h2 className="council-section-title">Council Management</h2>
           <div className="council-grid">
             {councilMembers.map((member, index) => (
-              <div key={index} className="member-card">
-                <div className="member-card-glow" />
-                <div className="member-card-content">
-                  <div className="member-card-header-row">
-                    <div className="member-card-icon-box">
-                      <Mail size={32} />
-                    </div>
-                    <div className="member-card-title-group">
-                      <h3 className="member-name">
-                        {member.name.split('\n').map((line, i) => (
-                          <React.Fragment key={i}>
-                            {line}
-                            {i < member.name.split('\n').length - 1 && <br />}
-                          </React.Fragment>
-                        ))}
-                      </h3>
-                      <p className="member-position">{member.position}</p>
-                    </div>
-                  </div>
-                  <div className="contact-links">
-                    <a href={`tel:${member.phone}`} className="contact-link">
-                      <Phone size={20} className="contact-icon" />
-                      {member.phone}
-                    </a>
-                    <a href={`mailto:${member.email}`} className="contact-link">
-                      <Mail size={20} className="contact-icon" />
-                      {member.email}
-                    </a>
-                    <a href={member.linkedin} className="contact-link" target="_blank" rel="noopener noreferrer">
-                      <Linkedin size={20} className="contact-icon" />
-                      LinkedIn Profile
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <ProfileCard
+                key={index}
+                avatarUrl={member.name === 'Kaustubh Natalkar' ? kaustubhImg : facultyAdvisorImg}
+                miniAvatarUrl={isaLogoImg}
+                iconUrl={devIconImg}
+                grainUrl={isaprinterImg}
+                name={member.name}
+                title={member.position}
+                handle={member.name.replace(/\s+/g, '').toLowerCase() }
+                contactText="Contact"
+                showUserInfo={true}
+                enableTilt={true}
+                behindGradient={"radial-gradient(circle at 60% 40%, #00ffaac4 0%, #073aff00 80%), linear-gradient(120deg, #ff6ec4 0%, #7873f5 100%)"}
+                onContactClick={() => window.open(`mailto:${member.email}`)}
+              />
             ))}
           </div>
         </div>
