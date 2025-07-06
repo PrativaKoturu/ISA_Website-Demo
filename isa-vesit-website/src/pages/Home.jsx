@@ -112,33 +112,33 @@ const Home = () => {
 
       {/* About Us Section */}
       <section className="about-us-section">
-        <div className="about-us-container">
-          <div className="about-us-card">
+        <div className="about-us-container" style={{ display: 'flex', gap: '2.5rem', alignItems: 'flex-start' }}>
+          <div className="about-us-card" style={{ flex: 2 }}>
             <h3 className="about-us-title">About ISA VESIT</h3>
             <p className="about-us-text">
-              ISA VESIT, as the student council of Instrumentation department at VESIT, 
-              dedicated to festering knowledge and innovation in automation and 
-              control technologies.
+              ISA-VESIT is an interdisciplinary organization in which professionals from Instrumentation, Electronics, Communications, Programming, Management and Control Design fields share a platform and contribute towards better functioning of the Industry and its Automation.<br /><br />
+              Founded in 1945, the International Society of Automation is a leading, global non-profit organization with more than 40,000 members and 400,000 customers worldwide.<br /><br />
+              ISA-VESIT is the student section of ISA International that comes under the ISA Maharashtra section. ISA-VESIT aims to bridge the gap between student community and industry by adding to the technical and industrial aspects of students with a vision of advancing technical competence by connecting the automation community to achieve operational excellence. We conduct workshops to enlighten our students with technical knowledge and make them impart it on day-to-day life practical applications so as to make the most out of theoretical wisdom.
             </p>
           </div>
-          <div className="stats-card">
-            <div className="stats-grid">
-              <div className="stat-item">
+          <div className="stats-card" style={{ flex: 1 }}>
+            <div className="stats-grid" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
+              <div className="stat-item" style={{ width: '220px', height: '135px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <Briefcase size={28} className="stat-icon" />
                 <span className="stat-number">50+</span>
                 <span className="stat-label">Workshops</span>
               </div>
-              <div className="stat-item">
+              <div className="stat-item" style={{ width: '220px', height: '135px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <Users size={28} className="stat-icon" />
                 <span className="stat-number">70+</span>
                 <span className="stat-label">Council Members</span>
               </div>
-              <div className="stat-item">
+              <div className="stat-item" style={{ width: '220px', height: '135px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <Cpu size={28} className="stat-icon" />
                 <span className="stat-number">80+</span>
                 <span className="stat-label">Components</span>
               </div>
-              <div className="stat-item">
+              <div className="stat-item" style={{ width: '220px', height: '135px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <History size={28} className="stat-icon" />
                 <span className="stat-number">5</span>
                 <span className="stat-label">Years</span>
@@ -154,7 +154,14 @@ const Home = () => {
         {loading ? (
           <div>Loading workshops...</div>
         ) : workshops.length === 0 ? (
-          <div>No upcoming workshops found.</div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '250px', width: '100%' }}>
+            <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '1.25rem', fontWeight: 600, color: '#b8c5d1', letterSpacing: '0.5px', textShadow: '0 2px 16px #0006' }}>
+              No Upcoming Workshops Found
+            </span>
+            <span style={{ fontFamily: 'Poppins, sans-serif', color: '#8a9ba8', fontSize: '0.95rem', marginTop: '0.5rem', fontWeight: 400 }}>
+              Please check back later for new events!
+            </span>
+          </div>
         ) : (
           <div className="workshop-carousel">
             <button onClick={handlePrev} className="carousel-nav prev">

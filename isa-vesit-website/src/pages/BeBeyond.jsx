@@ -82,6 +82,7 @@ const BeBeyondPage = () => {
 
         body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: #060A13;
           color: #ffffff;
           min-height: 100vh;
           overflow-x: hidden;
@@ -89,6 +90,7 @@ const BeBeyondPage = () => {
 
         /* Hero Section */
         .hero {
+          margin-top: 3.5rem;
           padding: 120px 2rem 80px;
           text-align: center;
           background: radial-gradient(circle at center, rgba(0, 188, 212, 0.1) 0%, transparent 70%);

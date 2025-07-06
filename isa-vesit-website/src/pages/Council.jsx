@@ -54,7 +54,7 @@ const Council = () => {
           <div className="faculty-card">
             <div className="faculty-image-container">
               <img 
-                src="/assets/images/council/faculty/gopala_krishnan.jpg" 
+                src={require('../assets/images/facultyadvisor.png')} 
                 alt="Mr. Gopala Krishnan N"
                 className="faculty-image"
                 onError={(e) => {

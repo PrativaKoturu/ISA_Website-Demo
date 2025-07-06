@@ -25,6 +25,7 @@ const Events = () => {
 
     /* Page container styles */
     .workshop-page-container {
+      background-color: #060A13;
       color: #e2e8f0;
       padding: 2rem;
       font-family: 'Montserrat', sans-serif; /* Or your preferred font */
@@ -485,7 +486,7 @@ const Events = () => {
     <div className="workshop-page-container">
       <style>{workshopPageStyles}</style>
 
-      <h1 className="workshop-page-title">Our Workshops</h1>
+      <h1 className="workshop-page-title" style={{ marginTop: '7rem' }}>Our Workshops</h1>
 
       <div className="workshop-filter-container">
         {['upcoming', 'past', 'all'].map(type => (
