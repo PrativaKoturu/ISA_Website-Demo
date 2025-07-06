@@ -144,14 +144,38 @@ const Home = () => {
               {workshops.slice(currentIndex, currentIndex + itemsPerPage).map(workshop => (
                 <div key={workshop.id} className="workshop-card">
                   <div className="workshop-image-container">
-                    <img src={workshop.image_url} alt={workshop.workshop_name} className="workshop-image" />
+                    <img 
+                      src={workshop.feature_image_url} 
+                      alt={workshop.workshop_name} 
+                      className="workshop-image"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/300x200/1e293b/60a5fa?text=Workshop';
+                      }}
+                    />
+                  </div>
+                  <div className="workshop-content">
+                    <h3 className="workshop-name">{workshop.workshop_name}</h3>
+                    {workshop.description && (
+                      <p className="workshop-description">
+                        {workshop.description.length > 100 
+                          ? `${workshop.description.substring(0, 100)}...` 
+                          : workshop.description}
+                      </p>
+                    )}
+                    <div className="workshop-date">
+                      {new Date(workshop.workshop_date).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </div>
                   </div>
                   <div className="workshop-button-container">
                     <button 
                       className="register-btn"
                       onClick={() => window.open(workshop.registration_link, '_blank')}
                     >
-                      Register
+                      Register Now
                     </button>
                   </div>
                 </div>
