@@ -41,7 +41,7 @@ const ThreeDPrinterPortal = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#0f172a", color: "#fff", padding: "2rem", fontFamily: "sans-serif" }}>
+    <div style={{ backgroundColor: "#060A13", color: "#fff", padding: "2rem", fontFamily: "sans-serif" }}>
       <h1
         style={{
           textAlign: "center",
@@ -87,7 +87,7 @@ const ThreeDPrinterPortal = () => {
               IMAGINATION TO REALITY
             </h2>
             <p style={{ fontSize: "1.05rem", color: "#cbd5e1", lineHeight: "1.6" }}> {/* Increased font size here */}
-              <strong>ISA-VESIT’s 3D Printer</strong>, inaugurated on <strong>Jan 14, 2019</strong>, turns virtual ideas
+              <strong>ISA-VESIT's 3D Printer</strong>, inaugurated on <strong>Jan 14, 2019</strong>, turns virtual ideas
               into real models—empowering students to learn, analyze, and innovate hands-on.
             </p>
           </div>
@@ -190,7 +190,7 @@ const ThreeDPrinterPortal = () => {
 
 const hudBoxStyle = {
   position: "relative",
-  backgroundColor: "#1a202c", 
+  backgroundColor: "#1A2332", 
   padding: "1.5rem",
   color: "#fff",
  
@@ -223,14 +223,14 @@ const inputStyle = {
   margin: "0.5rem 0 1rem",
   borderRadius: "0.4rem",
   border: "1px solid #4a90e2", 
-  backgroundColor: "#0f172a", 
+  backgroundColor: "#060A13", 
   color: "#fff",
 };
 
 
 const inputFileStyle = {
   marginBottom: "1rem",
-  backgroundColor: "#0f172a", 
+  backgroundColor: "#060A13", 
   borderRadius: "4px",
   color: "#fff",
   border: "1px solid #4a90e2", 
@@ -241,7 +241,7 @@ const inputFileStyle = {
 const submitButton = {
   width: "100%",
   padding: "0.6rem",
-  backgroundColor: "#3b82f6",
+  backgroundColor: "#4A90E2",
   border: "none",
   borderRadius: "0.5rem",
   fontWeight: "bold", 

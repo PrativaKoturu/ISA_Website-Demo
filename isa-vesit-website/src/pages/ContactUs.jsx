@@ -162,15 +162,15 @@ const ContactUs = () => {
                     </div>
                   </div>
                   <div className="contact-links">
-                    <a href={`tel:${member.phone}`} className="contact-link contact-link-box">
+                    <a href={`tel:${member.phone}`} className="contact-link">
                       <Phone size={20} className="contact-icon" />
                       {member.phone}
                     </a>
-                    <a href={`mailto:${member.email}`} className="contact-link contact-link-box">
+                    <a href={`mailto:${member.email}`} className="contact-link">
                       <Mail size={20} className="contact-icon" />
                       {member.email}
                     </a>
-                    <a href={member.linkedin} className="contact-link contact-link-box" target="_blank" rel="noopener noreferrer">
+                    <a href={member.linkedin} className="contact-link" target="_blank" rel="noopener noreferrer">
                       <Linkedin size={20} className="contact-icon" />
                       LinkedIn Profile
                     </a>

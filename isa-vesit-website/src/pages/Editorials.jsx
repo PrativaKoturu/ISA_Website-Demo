@@ -18,7 +18,7 @@ const Editorials = () => {
   const editorialsPageStyles = `
     /* Reset and Container */
     .editorials-page-container {
-      background-color: #0f172a;
+      background-color: #060A13;
       color: #e2e8f0;
       padding: 2rem;
       font-family: 'Montserrat', sans-serif;
@@ -49,7 +49,7 @@ const Editorials = () => {
       padding: 0.75rem 1.5rem;
       border-radius: 0.5rem;
       border: 1px solid #4a90e2;
-      background-color: #1a202c;
+      background-color: #1A2332;
       color: #60a5fa;
       font-size: 1rem;
       cursor: pointer;
@@ -57,9 +57,9 @@ const Editorials = () => {
     }
 
     .editorials-filter-button.active {
-      background-color: #3b82f6;
+      background-color: #4A90E2;
       color: #ffffff;
-      border-color: #3b82f6;
+      border-color: #4A90E2;
     }
 
     /* Timeline Container */
@@ -103,7 +103,7 @@ const Editorials = () => {
 
     /* The actual card within the timeline item */
     .editorial-card {
-      background: #1e293b;
+      background: #1A2332;
       border-radius: 0.8rem; /* Slightly smaller border-radius */
       padding: 1rem 1.2rem; /* Adjusted padding */
       text-align: left; /* Align text to left or right based on side */
@@ -132,9 +132,9 @@ const Editorials = () => {
     }
 
     /* Dynamic border colors */
-    .editorial-card.border-blue { border-color: #3b82f6; }
+    .editorial-card.border-blue { border-color: #4A90E2; }
     .editorial-card.border-yellow { border-color: #facc15; }
-    .editorial-card.border-red { border-color: #ef4444; }
+    .editorial-card.border-red { border-color: #4A90E2; }
     .editorial-card.border-green { border-color: #10b981; }
     .editorial-card.border-purple { border-color: #a855f7; }
 
@@ -146,7 +146,7 @@ const Editorials = () => {
       height: 18px;
       border-radius: 50%;
       background-color: #60a5fa; /* Dot color */
-      border: 3px solid #0f172a; /* Border matching background to make it pop */
+      border: 3px solid #060A13; /* Border matching background to make it pop */
       top: 50%; /* Center vertically */
       transform: translateY(-50%);
       z-index: 2; /* Ensure dot is on top */
@@ -211,7 +211,7 @@ const Editorials = () => {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background-color: #3b82f6;
+      background-color: #4A90E2;
       color: #ffffff;
       padding: 0.5rem 1rem;
       border-radius: 0.4rem;
@@ -235,7 +235,7 @@ const Editorials = () => {
       font-size: 1.2rem;
       color: #94a3b8;
       padding: 3rem;
-      background-color: #1a202c;
+      background-color: #1A2332;
       border-radius: 0.75rem;
       max-width: 600px;
       margin: 4rem auto;
@@ -243,7 +243,7 @@ const Editorials = () => {
     }
 
     .error-message {
-      background-color: #ef4444;
+      background-color: #4A90E2;
       color: white;
       padding: 1rem;
       border-radius: 0.5rem;
@@ -269,7 +269,7 @@ const Editorials = () => {
     }
 
     .editorial-modal-content {
-      background-color: #1e293b;
+      background-color: #1A2332;
       padding: 2rem;
       border-radius: 1rem;
       max-width: 600px;
@@ -436,7 +436,7 @@ const Editorials = () => {
     <div className="editorials-page-container">
       <style>{editorialsPageStyles}</style>
 
-      <h1 className="editorials-page-title">Our Editorials</h1>
+      <h1 className="editorials-page-title" style={{ marginTop: '7rem' }}>Our Editorials</h1>
 
       <div className="editorials-filter-container">
         {getAllYears().map(year => (
