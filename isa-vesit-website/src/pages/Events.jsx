@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient'; // Make sure this path is correct
-import { CalendarDays, ExternalLink, Image as ImageIcon, XCircle } from 'lucide-react';
+import { CalendarDays, ExternalLink, XCircle } from 'lucide-react';
 
 const Events = () => {
  
@@ -25,7 +25,6 @@ const Events = () => {
 
     /* Page container styles */
     .workshop-page-container {
-      background-color: #0f172a;
       color: #e2e8f0;
       padding: 2rem;
       font-family: 'Montserrat', sans-serif; /* Or your preferred font */
@@ -33,6 +32,7 @@ const Events = () => {
       width: 100%;
       max-width: 1400px; /* Adjusted from 1200px to 1400px */
       margin: 0 auto;
+      /* Remove any background - let it inherit from body */
     }
 
     .workshop-page-title {

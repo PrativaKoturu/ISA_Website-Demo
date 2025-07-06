@@ -1,11 +1,23 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
 // Futuristic VR Headset Model - Oculus Quest 2 style
 const VRHeadset = ({ onLoaded }) => {
   const groupRef = useRef();
-  const { scene } = useGLTF('/vr_headset.glb', true, undefined, onLoaded);
+  const { scene } = useGLTF('/vr_headset.glb');
+  
+  useEffect(() => {
+    if (scene && onLoaded) {
+      // Add a small delay to ensure the model is fully loaded
+      const timer = setTimeout(() => {
+        onLoaded();
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [scene, onLoaded]);
+
   return (
     <group ref={groupRef} dispose={null} scale={1.5} position={[0.25, 0, 0.7]} rotation={[0.1, 0.5, 0]}>
       <primitive object={scene} />
@@ -24,6 +36,26 @@ const Loader = () => {
 };
 
 const ThreeScene = ({ onLoaded }) => {
+  const [isModelLoaded, setIsModelLoaded] = useState(false);
+
+  useEffect(() => {
+    if (isModelLoaded && onLoaded) {
+      onLoaded();
+    }
+  }, [isModelLoaded, onLoaded]);
+
+  // Add a timeout fallback in case the model doesn't load
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isModelLoaded && onLoaded) {
+        console.warn('VR model loading timeout, proceeding anyway');
+        onLoaded();
+      }
+    }, 10000); // 10 second timeout
+
+    return () => clearTimeout(timeout);
+  }, [isModelLoaded, onLoaded]);
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas
@@ -44,7 +76,7 @@ const ThreeScene = ({ onLoaded }) => {
         
         {/* 3D Model with Suspense */}
         <Suspense fallback={<Loader />}>
-          <VRHeadset onLoaded={onLoaded} />
+          <VRHeadset onLoaded={() => setIsModelLoaded(true)} />
         </Suspense>
         
         {/* Controls */}

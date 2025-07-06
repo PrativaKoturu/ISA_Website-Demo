@@ -41,6 +41,12 @@ const Council = () => {
 
   return (
     <div className="council-page">
+      {/* Header Section - Exactly like Contact Us */}
+      <section className="hero" id="council">
+        <h1>COUNCIL</h1>
+        <p>Meet our dedicated council members who lead ISA-VESIT's mission to set standards for automation. Discover the passionate individuals driving innovation and excellence in our community.</p>
+      </section>
+
       {/* Faculty Advisor Section */}
       <section className="faculty-section">
         <div className="faculty-container">

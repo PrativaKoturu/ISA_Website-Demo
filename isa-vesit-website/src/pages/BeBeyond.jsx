@@ -69,16 +69,7 @@ const BeBeyondPage = () => {
     setTimeout(() => ripple.remove(), 600);
   };
 
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+
 
   return (
     <>
@@ -91,7 +82,6 @@ const BeBeyondPage = () => {
 
         body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, #0c1426 0%, #1e2a47 100%);
           color: #ffffff;
           min-height: 100vh;
           overflow-x: hidden;

@@ -18,7 +18,6 @@ const Editorials = () => {
   const editorialsPageStyles = `
     /* Reset and Container */
     .editorials-page-container {
-      background-color: #0f172a;
       color: #e2e8f0;
       padding: 2rem;
       font-family: 'Montserrat', sans-serif;
@@ -435,17 +434,28 @@ const Editorials = () => {
   return (
     <div className="editorials-page-container">
       <style>{editorialsPageStyles}</style>
+      
+      {/* Header Section - Exactly like Contact Us */}
+      <section className="hero" id="editorials">
+        <h1>EDITORIALS</h1>
+        <p>Explore our collection of insightful editorials and articles that showcase the latest trends, innovations, and perspectives in automation and technology. Discover thought-provoking content written by our community members.</p>
+      </section>
 
-      <h1 className="editorials-page-title">Our Editorials</h1>
-
+      {/* Filter Section */}
       <div className="editorials-filter-container">
+        <button 
+          className={`editorials-filter-button ${filterYear === 'all' ? 'active' : ''}`}
+          onClick={() => setFilterYear('all')}
+        >
+          All Years
+        </button>
         {getAllYears().map(year => (
-          <button
+          <button 
             key={year}
             className={`editorials-filter-button ${filterYear === year ? 'active' : ''}`}
             onClick={() => setFilterYear(year)}
           >
-            {year === 'all' ? 'All Years' : year}
+            {year}
           </button>
         ))}
       </div>

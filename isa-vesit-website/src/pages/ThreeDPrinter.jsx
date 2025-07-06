@@ -41,7 +41,7 @@ const ThreeDPrinterPortal = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#0f172a", color: "#fff", padding: "2rem", fontFamily: "sans-serif" }}>
+            <div style={{ color: "#fff", padding: "2rem", fontFamily: "sans-serif" }}>
       <h1
         style={{
           textAlign: "center",

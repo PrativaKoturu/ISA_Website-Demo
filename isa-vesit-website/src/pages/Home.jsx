@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ThreeScene from '../components/ThreeScene';
+import ModelViewer from '../blocks/Components/ModelViewer/ModelViewer';
 import { Briefcase, Users, Cpu, History, ChevronLeft, ChevronRight } from 'lucide-react';
-import workshopImage from '../assets/images/workshop.png';
 import { supabase } from '../supabaseClient';
 
 
@@ -38,10 +38,17 @@ const Home = () => {
     setCurrentIndex(prevIndex < 0 ? lastPageIndex : prevIndex);
   };
 
+  const handleVRLoaded = () => {
+    // Add a small delay to ensure the fade-out animation works properly
+    setTimeout(() => {
+      setVrLoading(false);
+    }, 100);
+  };
+
   return (
     <div className="home">
       {vrLoading && (
-        <div className="vr-loader-overlay">
+        <div className={`vr-loader-overlay ${!vrLoading ? 'fade-out' : ''}`}>
           <div className="vr-loader">
             <div className="vr-spinner"></div>
             <div className="vr-loader-text">Loading VR Experience...</div>
@@ -79,7 +86,26 @@ const Home = () => {
           </div>
           
           <div className="hero-3d">
-            <ThreeScene onLoaded={() => setVrLoading(false)} />
+            <ModelViewer
+              url="/vr_headset.glb"
+              width={1000}
+              height={600}
+              enableManualRotation={true}
+              enableMouseParallax={true}
+              enableHoverRotation={true}
+              enableManualZoom={true}
+              autoRotate={false}
+              fadeIn={true}
+              showScreenshotButton={false}
+              environmentPreset="forest"
+              ambientIntensity={0.6}
+              keyLightIntensity={1.2}
+              defaultZoom={10.0}
+              minZoomDistance={0.8}
+              maxZoomDistance={15}
+              autoFrame={true}
+              onModelLoaded={handleVRLoaded}
+            />
           </div>
         </div>
       </section>
