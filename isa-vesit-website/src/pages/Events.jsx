@@ -511,6 +511,14 @@ const Events = () => {
         height: 80px;
       }
     }
+
+    @media (max-width: 600px) {
+      .action-button {
+        white-space: normal;
+        width: 100%;
+        text-align: center;
+      }
+    }
   `;
 
   const fetchWorkshops = async () => {

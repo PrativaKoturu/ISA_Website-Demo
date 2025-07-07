@@ -366,6 +366,14 @@ const Editorials = () => {
           justify-content: flex-start;
       }
     }
+
+    @media (max-width: 600px) {
+      .action-button {
+        white-space: normal;
+        width: 100%;
+        text-align: center;
+      }
+    }
   `;
 
   const fetchEditorials = async () => {

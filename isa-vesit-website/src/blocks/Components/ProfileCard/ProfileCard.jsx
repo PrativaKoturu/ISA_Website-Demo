@@ -234,17 +234,25 @@ const ProfileCardComponent = ({
         <div className="pc-inside">
           <div className="pc-shine" />
           <div className="pc-glare" />
-          <div className="pc-content pc-avatar-content">
-            <img
-              className="avatar"
-              src={avatarUrl}
-              alt={`${name || "User"} avatar`}
-              loading="lazy"
-              onError={(e) => {
-                const target = e.target;
-                target.style.display = "none";
-              }}
-            />
+          <div className="pc-content pc-card-main-content">
+            <div className="pc-avatar-block">
+              <img
+                className="avatar"
+                src={avatarUrl}
+                alt={`${name || "User"} avatar`}
+                loading="lazy"
+                onError={(e) => {
+                  const target = e.target;
+                  target.style.display = "none";
+                }}
+              />
+            </div>
+            <div className="pc-details-block">
+              <div className="pc-details">
+                <h3>{name}</h3>
+                <p>{title}</p>
+              </div>
+            </div>
             {showUserInfo && (
               <div className="pc-user-info">
                 <div className="pc-user-details">
@@ -262,7 +270,6 @@ const ProfileCardComponent = ({
                   </div>
                   <div className="pc-user-text">
                     <div className="pc-handle">@{handle}</div>
-                    {/* Only render status if provided */}
                     {status && <div className="pc-status">{status}</div>}
                   </div>
                 </div>
@@ -277,12 +284,6 @@ const ProfileCardComponent = ({
                 </button>
               </div>
             )}
-          </div>
-          <div className="pc-content">
-            <div className="pc-details">
-              <h3>{name}</h3>
-              <p>{title}</p>
-            </div>
           </div>
         </div>
       </section>

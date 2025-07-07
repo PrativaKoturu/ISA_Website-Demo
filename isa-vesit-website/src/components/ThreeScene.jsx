@@ -37,6 +37,41 @@ const Loader = () => {
 
 const ThreeScene = ({ onLoaded }) => {
   const [isModelLoaded, setIsModelLoaded] = useState(false);
+  const [canvasStyle, setCanvasStyle] = useState({
+    width: '100%',
+    maxWidth: '540px',
+    margin: '0 auto',
+    height: '420px',
+    aspectRatio: '1.2/1',
+    display: 'block',
+  });
+
+  useEffect(() => {
+    function updateStyle() {
+      if (window.innerWidth <= 900) {
+        setCanvasStyle({
+          width: '100vw',
+          maxWidth: '340px',
+          margin: '0 auto',
+          height: 'auto',
+          aspectRatio: '1.2/1',
+          display: 'block',
+        });
+      } else {
+        setCanvasStyle({
+          width: '100%',
+          maxWidth: '540px',
+          margin: '0 auto',
+          height: '420px',
+          aspectRatio: '1.2/1',
+          display: 'block',
+        });
+      }
+    }
+    updateStyle();
+    window.addEventListener('resize', updateStyle);
+    return () => window.removeEventListener('resize', updateStyle);
+  }, []);
 
   useEffect(() => {
     if (isModelLoaded && onLoaded) {
@@ -57,10 +92,10 @@ const ThreeScene = ({ onLoaded }) => {
   }, [isModelLoaded, onLoaded]);
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={canvasStyle}>
       <Canvas
         camera={{ position: [0, 0.2, 1.8], fov: 60 }}
-        style={{ background: 'transparent' }}
+        style={{ width: '100%', height: '100%', background: 'transparent', display: 'block' }}
       >
         {/* Advanced Lighting */}
         <ambientLight intensity={0.6} />
