@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import printerimg from "../assets/images/isaprinter.png";
+import { supabase } from '../supabaseClient';
 
 
 const HudBox = ({ children, style = {}, ...props }) => {
@@ -28,6 +29,21 @@ const HudBox = ({ children, style = {}, ...props }) => {
 
 const ThreeDPrinterPortal = () => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const initialForm = {
+    name: '',
+    member_id: '',
+    email: '',
+    phone_number: '',
+    infill_percentage: 15,
+    estimated_time_hours: '',
+    layer_height: '',
+    extra_suggestions: '',
+    job_file: null,
+  };
+
+  const [form, setForm] = useState(initialForm);
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -38,6 +54,50 @@ const ThreeDPrinterPortal = () => {
 
   const handleMouseLeave = () => {
     setRotation({ x: 0, y: 0 });
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === 'file' ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage('');
+    let job_file_url = null;
+    if (form.job_file) {
+      const { data, error } = await supabase.storage.from('printer-jobs').upload(`jobs/${Date.now()}_${form.job_file.name}`, form.job_file);
+      if (error) {
+        setMessage('File upload failed.');
+        setSubmitting(false);
+        return;
+      }
+      job_file_url = data.path;
+    }
+    const { error } = await supabase.from('printer_enquires').insert([
+      {
+        name: form.name,
+        member_id: form.member_id,
+        email: form.email,
+        phone_number: form.phone_number,
+        infill_percentage: form.infill_percentage,
+        estimated_time_hours: form.estimated_time_hours,
+        layer_height: form.layer_height,
+        extra_suggestions: form.extra_suggestions,
+        job_file_url,
+      },
+    ]);
+    if (error) {
+      setMessage('Submission failed. Please try again.');
+    } else {
+      setMessage('Enquiry submitted successfully!');
+      setForm(initialForm);
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -95,7 +155,8 @@ const ThreeDPrinterPortal = () => {
       </div>
 
  
-      <div
+      <form
+        onSubmit={handleSubmit}
         style={{
           marginTop: "3rem",
           display: "flex",
@@ -105,55 +166,46 @@ const ThreeDPrinterPortal = () => {
           alignItems: "flex-start",
         }}
       >
-
         <HudBox style={{ flex: "1 1 320px", padding: "1.5rem" }}>
           <h3 style={{ ...hudHeading, fontSize: "1.4rem", textShadow: "none" }}>Personal Details</h3>
 
           <label style={{ fontSize: "0.95rem" }}>Name</label>
-          <input type="text" placeholder="e.g. Firstname Lastname" required style={inputStyle} />
+          <input name="name" type="text" placeholder="e.g. Firstname Lastname" required style={inputStyle} value={form.name} onChange={handleChange} />
+
+          <label style={{ fontSize: "0.95rem" }}>Member ID</label>
+          <input name="member_id" type="text" placeholder="ISA-VESIT Member ID" required style={inputStyle} value={form.member_id} onChange={handleChange} />
 
           <label style={{ fontSize: "0.95rem" }}>Email</label>
-          <input type="email" placeholder="VES email id" required style={inputStyle} />
+          <input name="email" type="email" placeholder="VES email id" required style={inputStyle} value={form.email} onChange={handleChange} />
 
           <label style={{ fontSize: "0.95rem" }}>Phone Number</label>
-          <input type="tel" placeholder="e.g. 9999999999" required style={inputStyle} />
+          <input name="phone_number" type="tel" placeholder="e.g. 9999999999" required style={inputStyle} value={form.phone_number} onChange={handleChange} />
 
           <h3 style={{ marginTop: "2rem", marginBottom: "1rem", textAlign: "center", color: "#60a5fa", fontSize: "1.4rem", textShadow: "none" }}>
             3D Printing Specifications
           </h3>
 
           <label style={{ fontSize: "0.95rem" }}>Infill %</label>
-          <input type="number" min="0" max="100" placeholder="Preferred: 15%" style={inputStyle} />
+          <input name="infill_percentage" type="number" min="0" max="100" placeholder="Preferred: 15%" style={inputStyle} value={form.infill_percentage} onChange={handleChange} />
 
           <label style={{ fontSize: "0.95rem" }}>Estimated Time (hrs)</label>
-          <input type="text" placeholder="Time in Hours" style={inputStyle} />
+          <input name="estimated_time_hours" type="text" placeholder="Time in Hours" style={inputStyle} value={form.estimated_time_hours} onChange={handleChange} />
 
-          <label style={{ fontSize: "0.95rem" }}>Infill Type</label>
-          <input type="text" placeholder="Type" style={inputStyle} />
-
-          <label style={{ fontSize: "0.95rem" }}>Resolution</label>
-          <select style={inputStyle}>
-            <option>Select</option>
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
-
-          <label style={{ fontSize: "0.95rem" }}>Color</label>
-          <select style={inputStyle}>
-            <option>Select</option>
-            <option>White</option>
-            <option>Black</option>
-            <option>Blue</option>
+          <label style={{ fontSize: "0.95rem" }}>Layer Height</label>
+          <select name="layer_height" style={inputStyle} value={form.layer_height} onChange={handleChange} required>
+            <option value="">Select</option>
+            <option value="0.2">0.2</option>
+            <option value="0.27">0.27</option>
           </select>
 
           <label style={{ fontSize: "0.95rem" }}>Any Extra Suggestion</label>
-          <input type="text" placeholder="e.g. I want 5 copies" style={inputStyle} />
+          <input name="extra_suggestions" type="text" placeholder="e.g. I want 5 copies" style={inputStyle} value={form.extra_suggestions} onChange={handleChange} />
 
           <label style={{ fontSize: "0.95rem" }}>Job File</label>
-          <input type="file" style={inputFileStyle} />
+          <input name="job_file" type="file" style={inputFileStyle} onChange={handleChange} />
 
-          <button type="submit" style={{ ...submitButton, fontWeight: "600" }}>Submit</button>
+          <button type="submit" style={{ ...submitButton, fontWeight: "600" }} disabled={submitting}>{submitting ? 'Submitting...' : 'Submit'}</button>
+          {message && <div style={{ marginTop: '1rem', color: message.includes('success') ? '#4A90E2' : '#ff6b6b', fontWeight: 600 }}>{message}</div>}
         </HudBox>
 
 
@@ -182,7 +234,7 @@ const ThreeDPrinterPortal = () => {
             </li>
           </ol>
         </HudBox>
-      </div>
+      </form>
     </div>
   );
 };

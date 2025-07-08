@@ -10,6 +10,8 @@ import ContactUs from './pages/ContactUs';
 import Editorials from './pages/Editorials';
 import Initiatives from './pages/Initiatives';
 import BeBeyond from './pages/BeBeyond';
+import JoinUs from './pages/JoinUs';
+import Podcast from './pages/Podcast';
 import './App.css';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Route path="/editorials" element={<Editorials />} />
             <Route path="/initiatives" element={<Initiatives />} />
             <Route path="/bebeyond" element={<BeBeyond />} />
+            <Route path="/joinus" element={<JoinUs />} />
+            <Route path="/podcast" element={<Podcast />} />
           </Routes>
         </main>
         <Footer />

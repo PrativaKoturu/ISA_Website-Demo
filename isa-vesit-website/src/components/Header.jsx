@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logoImage from '../assets/images/ISA-VESIT_Logo.png';
-import { Home, Calendar, Printer, Users, Info, Mail, X, BookOpen, Rocket, Star } from 'lucide-react';
+import { Home, Calendar, Printer, Users, Info, Mail, X, BookOpen, Rocket, Star, Mic } from 'lucide-react';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -30,12 +30,11 @@ const Header = () => {
   }, [menuOpen]);
 
   const navItems = [
-    { label: 'HOME', to: '/', icon: <Home size={22} /> },
-    { label: 'EVENTS', to: '/events', icon: <Calendar size={22} /> },
-    { label: '3D PRINTER', to: '/3dprinter', icon: <Printer size={22} /> },
+    { label: 'HOME', to: '/' },
+    { label: 'EVENTS', to: '/events' },
+    { label: '3D PRINTER', to: '/3dprinter' },
     {
       label: 'ABOUT US',
-      icon: <Info size={22} />,
       dropdown: [
         { label: 'COUNCIL', to: '/council', icon: <Users size={20} /> },
         { label: 'CONTACT US', to: '/contactus', icon: <Mail size={20} /> },
@@ -43,11 +42,11 @@ const Header = () => {
     },
     {
       label: 'MORE',
-      icon: <Star size={22} />,
       dropdown: [
         { label: 'EDITORIALS', to: '/editorials', icon: <BookOpen size={20} /> },
         { label: 'INITIATIVES', to: '/initiatives', icon: <Rocket size={20} /> },
         { label: 'BE BEYOND', to: '/bebeyond', icon: <Star size={20} /> },
+        { label: 'PODCAST', to: '/podcast', icon: <Mic size={20} /> },
       ],
     },
   ];
@@ -107,7 +106,7 @@ const Header = () => {
                 </React.Fragment>
               ))}
               <li className="nav-item">
-                <Link to="#" className="join-btn glow-button">Join US</Link>
+                <Link to="/joinus" className="join-btn glow-button" onClick={() => setMenuOpen(false)}>Join US</Link>
               </li>
             </ul>
           </nav>

@@ -447,13 +447,7 @@ const Editorials = () => {
       <h1 className="editorials-page-title" style={{ marginTop: '7rem' }}>Our Editorials</h1>
 
       <div className="editorials-filter-container">
-        <button 
-          className={`editorials-filter-button ${filterYear === 'all' ? 'active' : ''}`}
-          onClick={() => setFilterYear('all')}
-        >
-          All Years
-        </button>
-        {getAllYears().map(year => (
+        {getAllYears().filter(year => year !== 'all').map(year => (
           <button 
             key={year}
             className={`editorials-filter-button ${filterYear === year ? 'active' : ''}`}

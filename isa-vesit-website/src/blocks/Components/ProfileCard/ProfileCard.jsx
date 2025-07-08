@@ -236,16 +236,16 @@ const ProfileCardComponent = ({
           <div className="pc-glare" />
           <div className="pc-content pc-card-main-content">
             <div className="pc-avatar-block">
-              <img
-                className="avatar"
-                src={avatarUrl}
-                alt={`${name || "User"} avatar`}
-                loading="lazy"
-                onError={(e) => {
-                  const target = e.target;
-                  target.style.display = "none";
-                }}
-              />
+            <img
+              className="avatar"
+              src={avatarUrl}
+              alt={`${name || "User"} avatar`}
+              loading="lazy"
+              onError={(e) => {
+                const target = e.target;
+                target.style.display = "none";
+              }}
+            />
             </div>
             <div className="pc-details-block">
               <div className="pc-details">

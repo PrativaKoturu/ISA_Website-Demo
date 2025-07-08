@@ -3,7 +3,7 @@ import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 
 const Council = () => {
-  const [selectedYear, setSelectedYear] = useState('2024-25');
+  const [selectedYear, setSelectedYear] = useState('2025-26');
   const [selectedSection, setSelectedSection] = useState('BE');
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -156,8 +156,22 @@ const Council = () => {
           ) : (
             <div className="no-members">
               <div className="no-members-content">
-                <h3>No council members found</h3>
-                <p>Please select a different year or section.</p>
+                {selectedYear === '2025-26' && selectedSection === 'SE' ? (
+                  <>
+                    <h3>Recruiting soon</h3>
+                    <p>To know more contact:</p>
+                    <ul style={{margin: 0, padding: 0, listStyle: 'none', fontWeight: 500}}>
+                      <li>Viraj Pradhan<br/>(Secretary)<br/><a className="contact-phone" href="tel:+919969774307">+91 99697 74307</a></li>
+                      <li style={{marginTop: '0.7em'}}>Yadnyee Joshi<br/>(Jr. PRO)<br/><a className="contact-phone" href="tel:+919757077002">+91 97570 77002</a></li>
+                      <li style={{marginTop: '0.7em'}}>Ronit Chugwani<br/>(Jr. PRO)<br/><a className="contact-phone" href="tel:+918669770700">+91 86697 70700</a></li>
+                    </ul>
+                  </>
+                ) : (
+                  <>
+                    <h3>No council members found</h3>
+                    <p>Please select a different year or section.</p>
+                  </>
+                )}
               </div>
             </div>
           )}

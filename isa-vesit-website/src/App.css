@@ -813,6 +813,148 @@ main {
   margin-right: 3rem;
 }
 
+/* --- About VESIT Section --- */
+.about-vesit-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #0d1119 100%, #212b41 0%);
+  position: relative;
+  border-top: 1px solid rgba(74, 144, 226, 0.3);
+  margin: 0;
+}
+
+.about-vesit-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(74, 144, 226, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-vesit-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .about-vesit-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.about-vesit-card {
+  background: rgba(31, 42, 72, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(74, 144, 226, 0.3);
+  border-radius: 1rem;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(74, 144, 226, 0.2);
+  transition: all 0.3s ease;
+  min-width: 0;
+  width: 100%;
+  margin-bottom: 0;
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-vesit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(74, 144, 226, 0.4);
+  border-color: rgba(74, 144, 226, 0.6);
+}
+
+.about-vesit-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffe082;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+}
+
+.about-vesit-subtitle {
+  color: #ffe082;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 1.2rem 0 0.5rem 0;
+}
+
+.about-vesit-text {
+  color: #c5c6c7;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+.about-vesit-list li {
+  border-bottom: 1px solid #4a90e244;
+  color: #4a90e2;
+}
+
+.about-vesit-info {
+  color: #fffbe7;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.about-vesit-link {
+  color: #4a90e2;
+  text-decoration: underline;
+}
+
+.about-vesit-image-container {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+  margin-right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.about-vesit-image {
+  max-width: 100vw;
+  width: 100vw;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  filter: brightness(0.5) saturate(1.1) contrast(1.1);
+}
+
+@media (max-width: 900px) {
+  .about-vesit-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+  .about-vesit-card {
+    min-width: 0;
+    width: 100%;
+    min-height: unset;
+    height: auto;
+  }
+  .about-vesit-image {
+    max-width: 100%;
+  }
+}
+
+
 /* About Us Section */
 .about-us-section {
   padding: 6rem 2rem;
@@ -833,12 +975,12 @@ main {
 }
 
 .about-us-container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr;
   gap: 3rem;
-  align-items: center;
+  align-items: stretch;
   position: relative;
   z-index: 1;
 }
@@ -847,6 +989,20 @@ main {
   .about-us-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+}
+
+.about-us-card, .stats-card {
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .about-us-card, .stats-card {
+    min-height: unset;
+    height: auto;
   }
 }
 
@@ -1011,9 +1167,12 @@ main {
 
 /* Workshops Section */
 .workshops-section {
-  padding: 4rem 2rem;
-  background-color:  linear-gradient(135deg, #090c11 100%, #212b41 0%);
-  position: relative;
+  background: #10131c;
+  border-radius: 0;
+  padding: 2.5rem 0 2.5rem 0;
+  margin: 0 auto 0 auto;
+  width: 100%;
+  max-width: none;
 }
 
 .workshops-title {
@@ -3849,11 +4008,19 @@ main {
   }
 }
 
-@media (max-width: 480px) {
-  .contact-header-title {
-    font-size: 2rem;
-  }
+/* Stylish divider between About VESIT and Workshops */
+.section-divider {
+  width: 100%;
+  max-width: 900px;
+  height: 2px;
+  margin: 2.5rem auto 2.5rem auto;
+  border-radius: 1px;
+  background: #ffb347;
+  box-shadow: none;
+  opacity: 1;
+}
 
+@media (max-width: 480px) {
   .contact-header-subtitle {
     font-size: 1rem;
   }
@@ -9999,4 +10166,123 @@ main {
 @keyframes slideInNav {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+/* --- FORCE DESKTOP NAVBAR LOOK FOR DESKTOP SCREENS (FINAL BLOCK) --- */
+@media (min-width: 901px) {
+  .nav-right {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 2.5rem;
+    position: static;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+  }
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 2.5rem;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    width: auto;
+  }
+  .nav-item {
+    display: flex !important;
+    align-items: center;
+    position: relative;
+    width: auto;
+  }
+  .nav-link, .join-btn {
+    display: inline-block !important;
+    color: #B8C5D1 !important;
+    background: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.5rem;
+    width: auto;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-link.active, .nav-link:focus, .nav-link:hover, .join-btn:focus, .join-btn:hover {
+    color: #fff !important;
+    background: #4A90E2 !important;
+    box-shadow: 0 0 12px #4A90E2;
+  }
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1A2332;
+    border: 1px solid #4A90E2;
+    box-shadow: 0 8px 32px 0 #4A90E2, 0 2px 8px 0 rgba(74, 144, 226, 0.2);
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s;
+    z-index: 100;
+    padding: 0.5rem 0;
+    margin: 0;
+  }
+  .nav-item:hover .dropdown,
+  .nav-item:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown-item {
+    color: #B8C5D1;
+    background: none;
+    padding: 0.75rem 1.2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    display: block;
+    transition: background 0.2s, color 0.2s;
+  }
+  .dropdown-item:hover, .dropdown-item:focus {
+    color: #fff;
+    background: #4A90E2;
+  }
+  .mobile-menu-btn {
+    display: none !important;
+  }
+}
+
+@media (min-width: 901px) {
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-right, .nav-menu {
+    gap: 1.2rem !important; /* Reduce gap */
+  }
+  .nav-link, .join-btn {
+    font-size: 1rem;
+    padding: 0.4rem 0.9rem;
+  }
+  .nav-item {
+    align-items: center;
+  }
+}
+
+.contact-phone {
+  color: #4A90E2;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.contact-phone:hover {
+  color: #357ABD;
+  text-decoration: underline;
 }

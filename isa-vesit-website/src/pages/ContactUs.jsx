@@ -8,6 +8,7 @@ import isaLogoImg from "../assets/images/ISA-VESIT_Logo.png";
 import kaustubhImg from "../assets/images/kausthubh.png";
 import charchitImg from "../assets/images/charchit1.png";
 import regeImg from "../assets/images/rege1.png";
+import { supabase } from '../supabaseClient';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const ContactUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
   const [isMouseOverBoard, setIsMouseOverBoard] = useState(false);
+  const [showMembershipDialog, setShowMembershipDialog] = useState(false);
 
   const councilMembers = [
     {
@@ -58,30 +60,28 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted!', formData);
-    
     if (!formData.email || !formData.query) {
-      console.log('Validation failed: missing fields');
       showNotification('Please fill in all fields', 'error');
       return;
     }
-    
     if (!isValidEmail(formData.email)) {
-      console.log('Validation failed: invalid email');
       showNotification('Please enter a valid email address', 'error');
       return;
     }
-    
-    console.log('Form validation passed, starting submission...');
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submission completed');
-      setIsSubmitting(false);
+    const { error } = await supabase.from('website_queries').insert([
+      {
+        email: formData.email,
+        query_text: formData.query,
+      },
+    ]);
+    if (error) {
+      showNotification('Submission failed. Please try again.', 'error');
+    } else {
       showNotification('Your query has been submitted successfully! We will get back to you soon.', 'success');
       setFormData({ email: '', query: '' });
-    }, 2000);
+    }
+    setIsSubmitting(false);
   };
 
   const showNotification = (message, type) => {
@@ -147,7 +147,6 @@ const ContactUs = () => {
       {/* Council Members Section */}
       <section className="council-section">
         <div className="contact-container">
-          <h2 className="council-section-title">Council Management</h2>
           <div className="council-grid">
             {councilMembers.map((member, index) => (
               <ProfileCard
@@ -181,10 +180,56 @@ const ContactUs = () => {
           <div className="banner-content">
             <h2 className="banner-title">Join ISA-VESIT</h2>
             <p className="banner-text">Planning to join ISA-VESIT? Get all the information you need about membership!</p>
-            <p className="banner-contact">Contact us for membership details</p>
+            <button 
+              className="banner-contact beautified-contact-btn"
+              onClick={() => setShowMembershipDialog(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.6em',
+                fontSize: '1.1rem',
+                fontWeight: 700,
+                background: 'linear-gradient(90deg, #4A90E2 60%, #60a5fa 100%)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '2em',
+                padding: '0.7em 1.6em',
+                marginTop: '1.2rem',
+                boxShadow: '0 2px 16px #4A90E233',
+                cursor: 'pointer',
+                transition: 'background 0.2s, box-shadow 0.2s',
+                letterSpacing: '0.01em',
+              }}
+              onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(90deg, #60a5fa 60%, #4A90E2 100%)'}
+              onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(90deg, #4A90E2 60%, #60a5fa 100%)'}
+            >
+              <Mail size={20} style={{ marginRight: '0.2em' }} />
+              Contact us for membership details
+            </button>
           </div>
         </div>
       </section>
+
+      {showMembershipDialog && (
+        <div className="membership-dialog-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(10,16,30,0.85)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setShowMembershipDialog(false)}>
+          <div className="membership-dialog" style={{ background: '#10182a', borderRadius: 16, boxShadow: '0 8px 32px #4A90E2', padding: '2rem 1.5rem', minWidth: 280, maxWidth: 340, color: '#fff', position: 'relative' }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setShowMembershipDialog(false)} aria-label="Close" style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#4A90E2', fontSize: 28, cursor: 'pointer' }}>&times;</button>
+            <h3 style={{ color: '#4A90E2', marginBottom: '1.2rem', textAlign: 'center' }}>Membership Contacts</h3>
+            <div style={{ marginBottom: '1rem' }}>
+              <strong>Viraj Pradhan</strong> <span style={{ color: '#7ecfff' }}>(Secretary)</span><br/>
+              <a href="tel:+919969774307" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>+91 99697 74307</a>
+            </div>
+            <div style={{ marginBottom: '1rem' }}>
+              <strong>Yadnyee Joshi</strong> <span style={{ color: '#7ecfff' }}>(Jr. PRO)</span><br/>
+              <a href="tel:+919757077002" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>+91 97570 77002</a>
+            </div>
+            <div style={{ marginBottom: '0.5rem' }}>
+              <strong>Ronit Chugwani</strong> <span style={{ color: '#7ecfff' }}>(Jr. PRO)</span><br/>
+              <a href="tel:+918669770700" style={{ color: '#fff', textDecoration: 'none', fontWeight: 500 }}>+91 86697 70700</a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Interactive 3D Circuit Board Display */}
       <section className="hologram-section">
