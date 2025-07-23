@@ -11,110 +11,233 @@ const Editorials = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   
-  const timelineColors = ['#3b82f6', '#facc15', '#ef4444', '#10b981', '#a855f7']; 
+  const timelineColors = ['#3b82f6', '#facc15', '#ef4444', '#10b981']; // Removed purple
 
  
 
   const editorialsPageStyles = `
     /* Reset and Container */
     .editorials-page-container {
-      background-color: #060A13;
+      background: linear-gradient(135deg, #060A13 0%, #1A2332 50%, #0F1B2E 100%);
       color: #e2e8f0;
       padding: 2rem;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Montserrat', 'Inter', 'Poppins', sans-serif;
       min-height: 100vh;
       width: 100%;
       max-width: 1400px;
       margin: 0 auto;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .editorials-page-container::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .editorials-page-container > * {
+      position: relative;
+      z-index: 1;
     }
 
     .editorials-page-title {
       text-align: center;
-      font-size: 2.5rem;
-      color: #60a5fa;
-      margin-bottom: 2rem;
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #60a5fa 0%, #4A90E2 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 3rem;
       margin-top: 4rem;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .editorials-page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #60a5fa, #4A90E2);
+      border-radius: 2px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
+      to { box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
     }
 
     /* Filter buttons */
     .editorials-filter-container {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      gap: 1rem;
+      margin-bottom: 4rem;
       flex-wrap: wrap;
     }
 
     .editorials-filter-button {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      border: 1px solid #4a90e2;
-      background-color: #1A2332;
-      color: #60a5fa;
+      padding: 0.8rem 2rem;
+      border-radius: 2rem;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, #1A2332, #2A3441);
+      color: #cbd5e1;
       font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .editorials-filter-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .editorials-filter-button:hover::before {
+      left: 100%;
+    }
+
+    .editorials-filter-button:hover {
+      transform: translateY(-2px);
+      border-color: #4A90E2;
+      box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
     }
 
     .editorials-filter-button.active {
-      background-color: #4A90E2;
+      background: linear-gradient(135deg, #4A90E2, #60a5fa);
       color: #ffffff;
       border-color: #4A90E2;
+      box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+      transform: translateY(-2px);
     }
 
     /* Timeline Container */
     .editorials-timeline-container {
       position: relative;
-      max-width: 900px; /* Adjust max-width for the timeline */
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 20px 0;
+      padding: 40px 0;
     }
 
-    /* Vertical Line */
+    /* Animated Vertical Line */
     .editorials-timeline-container::after {
       content: '';
       position: absolute;
       width: 4px;
-      background-color: #4a90e2; /* Blue line */
+      background: linear-gradient(180deg, #4a90e2, #facc15, #10b981, #4a90e2);
+      background-size: 100% 400%;
+      animation: gradientShift 6s ease-in-out infinite;
       top: 0;
       bottom: 0;
       left: 50%;
-      margin-left: -2px; /* Center the line */
+      margin-left: -2px;
+      border-radius: 2px;
+      box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
       z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 0%; }
+      50% { background-position: 0% 100%; }
     }
 
     /* Timeline Item (each editorial) */
     .timeline-item {
-      padding: 10px 0;
+      padding: 20px 0;
       position: relative;
-      width: 50%;
-      z-index: 1; /* Ensure items are above the line */
+      width: 48%;
+      z-index: 1;
+      animation: slideInTimeline 0.8s ease-out forwards;
+      opacity: 0;
+      display: flex;
+      justify-content: center;
     }
 
     .timeline-item:nth-child(odd) {
       left: 0;
-      padding-right: 40px; /* Space for the line and dot */
+      padding-right: 0;
+      animation-delay: calc(var(--index) * 0.1s);
     }
 
     .timeline-item:nth-child(even) {
-      left: 50%;
-      padding-left: 40px; /* Space for the line and dot */
+      left: 52%;
+      padding-left: 0;
+      animation-delay: calc(var(--index) * 0.1s);
+    }
+
+    @keyframes slideInTimeline {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     /* The actual card within the timeline item */
     .editorial-card {
-      background: #1A2332;
-      border-radius: 0.8rem; /* Slightly smaller border-radius */
-      padding: 1rem 1.2rem; /* Adjusted padding */
-      text-align: left; /* Align text to left or right based on side */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: linear-gradient(135deg, rgba(26, 35, 50, 0.97), rgba(42, 52, 65, 0.97));
+      backdrop-filter: blur(16px);
+      border-radius: 1rem;
+      padding: 1.1rem 1.3rem;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
-      height: 100%;
-      justify-content: space-between;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      border: 2px solid transparent; /* Base for dynamic border colors */
-      cursor: pointer; /* Indicate it's clickable */
+      align-items: center;
+      justify-content: center;
+      min-width: 260px;
+      max-width: 350px;
+      width: 100%;
+      margin: 0 auto;
+      box-shadow: 0 4px 24px rgba(74, 144, 226, 0.10), 0 1.5px 4px rgba(0,0,0,0.10);
+      border: 1.5px solid #232e3e;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-height: 120px;
+    }
+
+    .editorial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .editorial-card:hover::before {
+      opacity: 1;
     }
 
     .timeline-item:nth-child(odd) .editorial-card {
@@ -125,39 +248,52 @@ const Editorials = () => {
         text-align: left;
     }
 
-
     .editorial-card:hover {
-      transform: translateY(-5px); /* Lift on hover */
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 12px 32px rgba(74, 144, 226, 0.18), 0 0 0 1.5px #4A90E2;
+      border-color: #4A90E2;
     }
 
-    /* Dynamic border colors */
+    /* Dynamic border colors with glow */
     .editorial-card.border-blue { border-color: #4A90E2; }
     .editorial-card.border-yellow { border-color: #facc15; }
-    .editorial-card.border-red { border-color: #4A90E2; }
+    .editorial-card.border-red { border-color: #ef4444; }
     .editorial-card.border-green { border-color: #10b981; }
-    .editorial-card.border-purple { border-color: #a855f7; }
+    /* Removed .border-purple */
 
-    /* Dot on the timeline */
+    /* Enhanced dot with pulsing animation */
     .timeline-item::after {
       content: '';
       position: absolute;
-      width: 18px; /* Size of the dot */
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      background-color: #60a5fa; /* Dot color */
-      border: 3px solid #060A13; /* Border matching background to make it pop */
-      top: 50%; /* Center vertically */
+      background: linear-gradient(135deg, #4A90E2, #facc15);
+      border: 4px solid #060A13;
+      top: 50%;
       transform: translateY(-50%);
-      z-index: 2; /* Ensure dot is on top */
+      z-index: 2;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
+      }
+      50% {
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+      }
     }
 
     .timeline-item:nth-child(odd)::after {
-      right: -9px; /* Position for left-aligned items */
+      right: -10px;
     }
 
     .timeline-item:nth-child(even)::after {
-      left: -9px; /* Position for right-aligned items */
+      left: -10px;
     }
 
     .editorial-content-wrapper {
@@ -169,21 +305,25 @@ const Editorials = () => {
 
     .editorial-title {
       color: #fff;
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
       word-break: break-word;
       min-height: auto;
       display: block;
       text-align: inherit;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
     }
 
     .editorial-year {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
+      gap: 0.7rem;
+      font-size: 0.95rem;
       color: #94a3b8;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
     }
     .timeline-item:nth-child(odd) .editorial-year {
         justify-content: flex-end;
@@ -206,27 +346,46 @@ const Editorials = () => {
         justify-content: flex-start;
     }
 
-
     .action-button {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background-color: #4A90E2;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, #4A90E2, #60a5fa);
       color: #ffffff;
-      padding: 0.5rem 1rem;
-      border-radius: 0.4rem;
+      padding: 0.7rem 1.3rem;
+      border-radius: 2rem;
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.2s ease;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       flex-shrink: 0;
       white-space: nowrap;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       border: none;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(74, 144, 226, 0.18);
+    }
+
+    .action-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .action-button:hover::before {
+      left: 100%;
     }
 
     .action-button:hover {
-      background-color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(74, 144, 226, 0.25);
+      background: linear-gradient(135deg, #2563eb, #4A90E2);
     }
 
     /* Message Boxes */
@@ -235,130 +394,142 @@ const Editorials = () => {
       font-size: 1.2rem;
       color: #94a3b8;
       padding: 3rem;
-      background-color: #1A2332;
-      border-radius: 0.75rem;
+      background: linear-gradient(135deg, rgba(26, 35, 50, 0.8), rgba(42, 52, 65, 0.8));
+      backdrop-filter: blur(20px);
+      border-radius: 1.5rem;
       max-width: 600px;
       margin: 4rem auto;
-      border: 1px solid #4a90e2;
+      border: 1px solid rgba(74, 144, 226, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .error-message {
-      background-color: #4A90E2;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
       color: white;
-      padding: 1rem;
-      border-radius: 0.5rem;
+      padding: 1.5rem;
+      border-radius: 1rem;
       text-align: center;
       max-width: 600px;
       margin: 2rem auto;
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+      border: 1px solid rgba(248, 113, 113, 0.3);
     }
 
-    /* Modal Styles (Simplified for Editorials) */
+    /* Enhanced Modal Styles */
     .editorial-modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
       overflow-y: auto;
       padding: 20px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .editorial-modal-content {
-      background-color: #1A2332;
-      padding: 2rem;
-      border-radius: 1rem;
-      max-width: 600px;
+      background: linear-gradient(135deg, rgba(26, 35, 50, 0.98), rgba(42, 52, 65, 0.98));
+      backdrop-filter: blur(20px);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      max-width: 700px;
       width: 95%;
       position: relative;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-      animation: fadeInScale 0.3s ease-out;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      animation: slideUpModal 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
       max-height: 90vh;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    @keyframes slideUpModal {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .editorial-modal-close-button {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
       color: #cbd5e1;
-      font-size: 1.8rem;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       z-index: 1001;
-      transition: color 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .editorial-modal-close-button:hover {
+      background: rgba(248, 113, 113, 0.2);
+      border-color: rgba(248, 113, 113, 0.4);
       color: #f87171;
+      transform: rotate(90deg);
     }
 
     .modal-editorial-title {
-      font-size: 2rem;
-      color: #60a5fa;
-      margin-bottom: 1rem;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #60a5fa 0%, #4A90E2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.2rem;
       text-align: center;
       word-break: break-word;
+      line-height: 1.2;
     }
 
     .modal-editorial-year {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
+      gap: 0.8rem;
+      font-size: 1.1rem;
       color: #94a3b8;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       justify-content: center;
+      font-weight: 500;
     }
     
-    /* Animation */
-    @keyframes fadeInScale {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     /* Responsive adjustments for timeline */
     @media (max-width: 768px) {
       .editorials-page-container { padding: 1rem; }
-      .editorials-page-title { font-size: 2rem; }
-      .editorials-filter-button { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+      .editorials-page-title { font-size: 2.5rem; }
+      .editorials-filter-button { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
       
-      .editorials-timeline-container {
-        padding: 0 10px;
-      }
-
-      .editorials-timeline-container::after {
-        left: 20px;
-      }
-
-      .timeline-item {
-        width: 100%;
-        padding-left: 50px;
-        padding-right: 10px;
-      }
-
-      .timeline-item:nth-child(odd),
-      .timeline-item:nth-child(even) {
-        left: 0;
-        padding-right: 10px;
-        text-align: left;
-      }
-
-      .timeline-item::after {
-        left: 10px;
-        right: auto;
-      }
-
-      .editorial-card { padding: 0.8rem; }
+      .editorials-timeline-container { padding: 0 5px; }
+      .editorials-timeline-container::after { left: 25px; }
+      .timeline-item { width: 100%; padding-left: 0; padding-right: 0; justify-content: center; }
+      .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; padding-right: 0; text-align: center; }
+      .timeline-item::after { left: 15px; right: auto; }
+      .editorial-card { padding: 1rem; min-width: 0; max-width: 95vw; }
       .editorial-title { font-size: 1.1rem; text-align: left; }
-      .editorial-year { font-size: 0.85rem; justify-content: flex-start; }
-      .action-button { padding: 0.5rem 1rem; font-size: 0.8rem; }
-      .editorial-modal-content { padding: 1rem; max-height: 95vh; }
+      .editorial-year { font-size: 0.9rem; justify-content: flex-start; }
+      .action-button { padding: 0.7rem 1.1rem; font-size: 0.85rem; }
+      .editorial-modal-content { padding: 1.5rem; max-height: 95vh; }
       .modal-editorial-title { font-size: 1.5rem; }
 
       .timeline-item:nth-child(odd) .editorial-year,
@@ -368,11 +539,15 @@ const Editorials = () => {
     }
 
     @media (max-width: 600px) {
+      .editorials-page-title { font-size: 2rem; }
       .action-button {
         white-space: normal;
         width: 100%;
         text-align: center;
+        justify-content: center;
       }
+      .editorial-modal-content { padding: 1rem; }
+      .modal-editorial-title { font-size: 1.2rem; }
     }
   `;
 
@@ -475,10 +650,14 @@ const Editorials = () => {
         <div className="editorials-timeline-container">
           {filteredEditorials.map((editorial, index) => {
             const colorIndex = index % timelineColors.length;
-            const borderColorClass = `border-${['blue', 'yellow', 'red', 'green', 'purple'][colorIndex]}`;
+            const borderColorClass = `border-${['blue', 'yellow', 'red', 'green'][colorIndex]}`; // Removed purple
 
             return (
-              <div key={editorial.id} className="timeline-item">
+              <div 
+                key={editorial.id} 
+                className="timeline-item"
+                style={{ '--index': index }}
+              >
                 <div
                   className={`editorial-card ${borderColorClass}`}
                   onClick={() => handleViewDetails(editorial)}
@@ -486,7 +665,7 @@ const Editorials = () => {
                   <div className="editorial-content-wrapper">
                     <h3 className="editorial-title">{editorial.name}</h3>
                     <div className="editorial-year">
-                      <CalendarDays size={18} />
+                      <CalendarDays size={20} />
                       <span>Year: {editorial.year}</span>
                     </div>
                     <div className="editorial-actions">
@@ -497,7 +676,7 @@ const Editorials = () => {
                         className="action-button"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        Read Editorial <ExternalLink size={16} />
+                        Read Editorial <ExternalLink size={18} />
                       </a>
                     </div>
                   </div>
@@ -513,11 +692,11 @@ const Editorials = () => {
         <div className="editorial-modal-overlay">
           <div className="editorial-modal-content">
             <button className="editorial-modal-close-button" onClick={closeModal}>
-              <XCircle size={28} />
+              <XCircle size={24} />
             </button>
             <h2 className="modal-editorial-title">{selectedEditorial.name}</h2>
             <div className="modal-editorial-year">
-              <CalendarDays size={20} />
+              <CalendarDays size={22} />
               <span>Year: {selectedEditorial.year}</span>
             </div>
             <div className="editorial-actions">
@@ -528,7 +707,7 @@ const Editorials = () => {
                     className="action-button"
                     style={{ margin: '0 auto' }}
                 >
-                    Read Editorial <ExternalLink size={16} />
+                    Read Editorial <ExternalLink size={18} />
                 </a>
             </div>
           </div>

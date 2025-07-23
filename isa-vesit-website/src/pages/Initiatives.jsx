@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Globe, GraduationCap, Mic, Youtube, BookOpen, Settings, Package, Smartphone, Megaphone, Wrench, Printer, Sparkles, Zap, Target, Rocket, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import ScholarshipWinners from '../assets/images/isa_scholarship_winner.jpg';
 
 const Initiatives = () => {
   const [animatedStats, setAnimatedStats] = useState({
@@ -11,14 +13,15 @@ const Initiatives = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardsRef = useRef([]);
+  const navigate = useNavigate();
 
   const initiatives = [
-    {
-      id: 1,
-      icon: <Globe size={24} />,
-      title: "Website Portal",
-      description: "Get access to the complete information of all events & workshops, 3D printing Portal, Editorials, Hall Of Fame, Digital Library and much more. Your one-stop destination for all ISA-VESIT resources."
-    },
+    // {
+    //   id: 1,
+    //   icon: <Globe size={24} />,
+    //   title: "Website Portal",
+    //   description: "Get access to the complete information of all events & workshops, 3D printing Portal, Editorials, Hall Of Fame, Digital Library and much more. Your one-stop destination for all ISA-VESIT resources."
+    // },
     {
       id: 2,
       icon: <GraduationCap size={24} />,
@@ -49,12 +52,12 @@ const Initiatives = () => {
       title: "Hardware Inventory",
       description: "You can now easily order any hardware component required in your project at your very own location. Streamlined procurement process for all your technical needs."
     },
-    {
-      id: 7,
-      icon: <Package size={24} />,
-      title: "Hardware Kit",
-      description: "Doorstep delivery of hardware components at an affordable price! Get curated hardware kits delivered directly to your location with quality assurance and competitive pricing."
-    },
+    // {
+    //   id: 7,
+    //   icon: <Package size={24} />,
+    //   title: "Hardware Kit",
+    //   description: "Doorstep delivery of hardware components at an affordable price! Get curated hardware kits delivered directly to your location with quality assurance and competitive pricing."
+    // },
     {
       id: 8,
       icon: <Smartphone size={24} />,
@@ -161,8 +164,24 @@ const Initiatives = () => {
   };
 
   const handleViewDetails = (initiative) => {
-    // Add ripple effect
-    console.log(`View details for ${initiative.title}`);
+    if (initiative.title === 'Be and Beyond') {
+      navigate('/bebeyond');
+    } else if (initiative.title === 'YouTube Channel') {
+      window.open('https://www.youtube.com/c/ISAVESIT', '_blank', 'noopener,noreferrer');
+    } else if (initiative.title === 'Lumina App') {
+      window.open('https://play.google.com/store', '_blank', 'noopener,noreferrer');
+    } else if (initiative.title === 'Digital Notice Board') {
+      navigate('/noticeboard');
+    } else if (initiative.title === 'Alumni Hub') {
+      window.open('https://alumnihub.isavesit.org.in/', '_blank', 'noopener,noreferrer');
+    } else if (initiative.title === '3D Printer Access') {
+      navigate('/3dprinter');
+    } else if (initiative.title === 'Hardware Inventory') {
+      navigate('/hardware-inventory');
+    } else {
+      // Default: do nothing or add more cases as needed
+      console.log(`View details for ${initiative.title}`);
+    }
   };
 
   const handleCardHover = (index) => {

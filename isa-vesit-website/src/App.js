@@ -12,6 +12,8 @@ import Initiatives from './pages/Initiatives';
 import BeBeyond from './pages/BeBeyond';
 import JoinUs from './pages/JoinUs';
 import Podcast from './pages/Podcast';
+import NoticeBoard from './pages/NoticeBoard';
+import HardwareInventory from './pages/HardwareInventory';
 import './App.css';
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
             <Route path="/bebeyond" element={<BeBeyond />} />
             <Route path="/joinus" element={<JoinUs />} />
             <Route path="/podcast" element={<Podcast />} />
+            <Route path="/noticeboard" element={<NoticeBoard />} />
+            <Route path="/hardware-inventory" element={<HardwareInventory />} />
           </Routes>
         </main>
         <Footer />
