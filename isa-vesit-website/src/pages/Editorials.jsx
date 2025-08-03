@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient'; 
-import { ExternalLink, CalendarDays, XCircle } from 'lucide-react';
+import { CalendarDays, XCircle, BookOpen } from 'lucide-react';
+import PDFViewer from '../components/PDFViewer';
 
 const Editorials = () => {
   const [editorials, setEditorials] = useState([]);
@@ -9,6 +10,9 @@ const Editorials = () => {
   const [message, setMessage] = useState('');
   const [selectedEditorial, setSelectedEditorial] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+  const [currentPdfTitle, setCurrentPdfTitle] = useState('');
 
   
   const timelineColors = ['#3b82f6', '#facc15', '#ef4444', '#10b981']; // Removed purple
@@ -388,6 +392,13 @@ const Editorials = () => {
       background: linear-gradient(135deg, #2563eb, #4A90E2);
     }
 
+    .no-editorial {
+      color: #6b7280;
+      font-style: italic;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+
     /* Message Boxes */
     .message-box {
       text-align: center;
@@ -555,7 +566,6 @@ const Editorials = () => {
     setLoading(true);
     setMessage('');
     try {
- 
       const { data, error } = await supabase
         .from('editorials')
         .select('*')
@@ -570,7 +580,6 @@ const Editorials = () => {
     } catch (error) {
       console.error('Error fetching editorials:', error.message);
       setMessage('Failed to load editorials. Please try again later.');
- 
     } finally {
       setLoading(false);
     }
@@ -611,6 +620,20 @@ const Editorials = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedEditorial(null);
+  };
+
+  const handleReadEditorial = (e, editorialLink, editorialName) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentPdfUrl(editorialLink);
+    setCurrentPdfTitle(editorialName);
+    setIsPDFViewerOpen(true);
+  };
+
+  const closePDFViewer = () => {
+    setIsPDFViewerOpen(false);
+    setCurrentPdfUrl('');
+    setCurrentPdfTitle('');
   };
 
   const filteredEditorials = getFilteredEditorials();
@@ -669,15 +692,16 @@ const Editorials = () => {
                       <span>Year: {editorial.year}</span>
                     </div>
                     <div className="editorial-actions">
-                      <a
-                        href={editorial.editorial_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="action-button"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Read Editorial <ExternalLink size={18} />
-                      </a>
+                      {editorial.editorial_pdf_url || editorial.editorial_link ? (
+                        <button
+                          className="action-button"
+                          onClick={(e) => handleReadEditorial(e, editorial.editorial_pdf_url || editorial.editorial_link, editorial.name)}
+                        >
+                          📄 View PDF <BookOpen size={18} />
+                        </button>
+                      ) : (
+                        <span className="no-editorial">No editorial available</span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -700,19 +724,40 @@ const Editorials = () => {
               <span>Year: {selectedEditorial.year}</span>
             </div>
             <div className="editorial-actions">
-                <a
-                    href={selectedEditorial.editorial_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+              {selectedEditorial.editorial_pdf_url || selectedEditorial.editorial_link ? (
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <button
                     className="action-button"
-                    style={{ margin: '0 auto' }}
-                >
-                    Read Editorial <ExternalLink size={18} />
-                </a>
+                    onClick={(e) => handleReadEditorial(e, selectedEditorial.editorial_pdf_url || selectedEditorial.editorial_link, selectedEditorial.name)}
+                  >
+                    📄 View PDF <BookOpen size={18} />
+                  </button>
+                  <a
+                    href={selectedEditorial.editorial_pdf_url || selectedEditorial.editorial_link}
+                    download={`${selectedEditorial.name}_${selectedEditorial.year}.pdf`}
+                    className="action-button"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    ⬇️ Download PDF
+                  </a>
+                </div>
+              ) : (
+                <span className="no-editorial" style={{ textAlign: 'center', display: 'block' }}>
+                  No editorial available
+                </span>
+              )}
             </div>
           </div>
         </div>
       )}
+
+      {/* PDF Viewer */}
+      <PDFViewer
+        isOpen={isPDFViewerOpen}
+        onClose={closePDFViewer}
+        pdfUrl={currentPdfUrl}
+        title={currentPdfTitle}
+      />
     </div>
   );
 };
