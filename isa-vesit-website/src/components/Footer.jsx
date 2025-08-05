@@ -14,7 +14,7 @@ const Footer = () => {
             <h3>Services</h3>
             <ul>
               <li><Link to="/3dprinter">3D Printer</Link></li>
-              <li><Link to="#">InnSAEi App</Link></li>
+              <li><Link to="#">Lumina App</Link></li>
               <li><Link to="#">Hardware Inventory</Link></li>
               <li><Link to="#">Digital Library</Link></li>
             </ul>

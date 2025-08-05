@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Cpu, Box, Settings, Zap, Eye, Wifi, Layers, Package, Archive } from 'lucide-react';
 import './HardwareInventory.css';
 
@@ -13,8 +13,13 @@ const categories = [
   { icon: <Settings size={36} />, label: 'Modules & Shields' },
 ];
 
-const HardwareInventory = () => (
-  <div className="hardware-inventory-page">
+const HardwareInventory = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="hardware-inventory-page">
     <div className="hardware-inventory-hero">
       <h1>ISA Hardware Inventory</h1>
       <p>
@@ -45,6 +50,7 @@ const HardwareInventory = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default HardwareInventory; 

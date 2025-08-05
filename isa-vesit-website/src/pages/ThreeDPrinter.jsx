@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import printerimg from "../assets/images/isaprinter.png";
 import { supabase } from '../supabaseClient';
 
@@ -28,6 +28,10 @@ const HudBox = ({ children, style = {}, ...props }) => {
 };
 
 const ThreeDPrinterPortal = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const initialForm = {
     name: '',

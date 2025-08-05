@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ThreeScene from '../components/ThreeScene';
 import { Briefcase, Users, Cpu, History, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../supabaseClient';
@@ -6,6 +7,7 @@ import PixelCard from '../blocks/Components/PixelCard/PixelCard';
 
 
 const Home = () => {
+  const navigate = useNavigate();
   const [workshops, setWorkshops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [vrLoading, setVrLoading] = useState(true);
@@ -66,7 +68,7 @@ const Home = () => {
             <h2 className="hero-subtitle gradient-headline">AUTOMATION<span className="trademark">™</span></h2>
             
             <div className="cta-button">
-              <button className="explore-btn">
+              <button className="explore-btn" onClick={() => navigate('/initiatives')}>
                 <span>Explore ISA</span>
                 <div className="btn-particles">
                   <div className="particle"></div>

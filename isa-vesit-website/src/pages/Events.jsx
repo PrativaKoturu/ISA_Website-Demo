@@ -364,91 +364,210 @@ const Events = () => {
     }
 
     .workshop-modal-content {
-      background-color: #1e293b;
-      padding: 2rem;
-      border-radius: 1rem;
-      max-width: 800px;
+      background: linear-gradient(145deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+      padding: 3rem;
+      border-radius: 2rem;
+      max-width: 1000px;
       width: 95%;
       position: relative;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-      animation: fadeInScale 0.3s ease-out;
-      overflow-y: auto; /* Make content scrollable if it overflows */
-      max-height: 90vh; /* Limit modal height */
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(96, 165, 250, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      animation: fadeInScale 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow-y: auto;
+      max-height: 90vh;
+      backdrop-filter: blur(10px);
+    }
+
+    .workshop-modal-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(96, 165, 250, 0.02) 50%, transparent 70%);
+      border-radius: 1.5rem;
+      pointer-events: none;
     }
 
     .workshop-modal-close-button {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      color: #cbd5e1;
-      font-size: 1.8rem;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      font-size: 1.5rem;
       cursor: pointer;
       z-index: 1001;
-      transition: color 0.2s ease;
+      transition: all 0.3s ease;
+      padding: 0.75rem;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
     }
 
     .workshop-modal-close-button:hover {
-      color: #f87171;
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
     }
 
     .modal-workshop-title {
-      font-size: 2rem;
-      color: #60a5fa;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 2rem;
       text-align: center;
       word-break: break-word;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      position: relative;
+      line-height: 1.2;
+    }
+
+    .modal-workshop-title::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6, #60a5fa);
+      border-radius: 2px;
+      opacity: 0.8;
+    }
+
+    .modal-workshop-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+      border-radius: 1px;
     }
 
     .modal-main-image {
       width: 100%;
       height: auto;
-      max-height: 400px; /* Limit height of main image */
-      object-fit: contain; /* Ensure the whole image is visible */
-      border-radius: 0.5rem;
-      margin-bottom: 1.5rem;
-      display: block; /* Remove extra space below image */
+      max-height: 600px;
+      object-fit: contain;
+      border-radius: 1.5rem;
+      margin-bottom: 3rem;
+      display: block;
       margin-left: auto;
       margin-right: auto;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(96, 165, 250, 0.15);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(96, 165, 250, 0.05) 100%);
+      padding: 1rem;
+    }
+
+    .modal-main-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
     }
 
     .modal-workshop-date {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      color: #94a3b8;
-      margin-bottom: 1.5rem;
+      gap: 1rem;
+      font-size: 1.2rem;
+      color: #e2e8f0;
+      margin-bottom: 3rem;
       justify-content: center;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(96, 165, 250, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-workshop-date svg {
+      color: #60a5fa;
     }
 
     .modal-workshop-description {
-      font-size: 1rem;
-      color: #cbd5e1;
-      line-height: 1.6;
-      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      line-height: 1.9;
+      margin-bottom: 3rem;
       text-align: left;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      border-left: 5px solid #60a5fa;
+      position: relative;
+      box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-workshop-description::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(96, 165, 250, 0.03) 50%, transparent 70%);
+      border-radius: 0.75rem;
+      pointer-events: none;
     }
 
     .modal-event-images-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
     }
 
     .modal-event-image {
       width: 100%;
-      height: 120px; /* Fixed height for gallery images */
+      height: 140px;
       object-fit: cover;
-      border-radius: 0.5rem;
+      border-radius: 1rem;
       cursor: zoom-in;
-      transition: transform 0.2s ease;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 2px solid transparent;
+      box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(96, 165, 250, 0.1);
+      filter: brightness(0.9);
     }
 
     .modal-event-image:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) translateY(-5px);
+      border-color: #60a5fa;
+      box-shadow: 
+        0 15px 35px rgba(96, 165, 250, 0.4),
+        0 0 0 2px rgba(96, 165, 250, 0.2);
+      filter: brightness(1.1);
     }
 
     /* Animations */
@@ -587,6 +706,23 @@ const Events = () => {
     setSelectedWorkshop(null);
   };
 
+  // Function to clean and format workshop description
+  const formatWorkshopDescription = (description) => {
+    if (!description) return '';
+    
+    // Remove emojis and special characters
+    let cleaned = description
+      .replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '')
+      .replace(/[^\w\s.,!?;:()[\]{}'"`~@#$%^&*+=<>/\\|-]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    
+    // Split into sentences and format
+    const sentences = cleaned.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0);
+    
+    return sentences.map(sentence => sentence.trim()).join('. ');
+  };
+
   const filteredWorkshops = getFilteredWorkshops();
 
   const isWorkshopUpcoming = (workshopDateStr) => {
@@ -645,32 +781,32 @@ const Events = () => {
                 <div style={{ padding: '0.5rem 0.5rem 1rem', display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'center' }}>
                   <h3 className="workshop-title">{workshop.workshop_name}</h3>
                   {workshop.description && (
-                    <p className="workshop-description">{workshop.description}</p>
+                    <p className="workshop-description">{formatWorkshopDescription(workshop.description)}</p>
                   )}
                   <div className="workshop-date">
                     <CalendarDays size={18} />
                     <span>{new Date(workshop.workshop_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                   </div>
-                  <div className="workshop-actions">
-                    {/* Card-level button logic: */}
-                    {filterType === 'upcoming' && upcoming && workshop.registration_link ? (
-                      <a
-                        href={workshop.registration_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="action-button"
-                      >
-                        Register Now <ExternalLink size={16} />
-                      </a>
-                    ) : (
-                      <button
-                        onClick={() => handleViewDetails(workshop)}
-                        className="action-button"
-                      >
-                        View Details
-                      </button>
-                    )}
-                  </div>
+                                     <div className="workshop-actions">
+                     {/* Card-level button logic: */}
+                     {upcoming && workshop.registration_link ? (
+                       <a
+                         href={workshop.registration_link}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="action-button"
+                       >
+                         Register Now <ExternalLink size={16} />
+                       </a>
+                     ) : (
+                       <button
+                         onClick={() => handleViewDetails(workshop)}
+                         className="action-button"
+                       >
+                         View Details
+                       </button>
+                     )}
+                   </div>
                 </div>
               </div>
             );
@@ -704,12 +840,42 @@ const Events = () => {
             </div>
 
             {selectedWorkshop.description && (
-              <p className="modal-workshop-description">{selectedWorkshop.description}</p>
+              <p className="modal-workshop-description">
+                {formatWorkshopDescription(selectedWorkshop.description)}
+              </p>
             )}
 
             {selectedWorkshop.event_images && selectedWorkshop.event_images.length > 0 && (
               <>
-                <h3 style={{ color: '#60a5fa', marginBottom: '1rem', textAlign: 'center' }}>Event Gallery</h3>
+                <div style={{ 
+                  textAlign: 'center', 
+                  marginBottom: '2rem',
+                  padding: '2rem',
+                  background: 'linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%)',
+                  borderRadius: '1.5rem',
+                  border: '1px solid rgba(96, 165, 250, 0.25)',
+                  boxShadow: '0 8px 25px rgba(96, 165, 250, 0.1)',
+                  backdropFilter: 'blur(10px)'
+                }}>
+                  <h3 style={{ 
+                    color: '#ffffff', 
+                    marginBottom: '0.75rem', 
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    Event Gallery
+                  </h3>
+                  <p style={{ 
+                    color: '#cbd5e1', 
+                    fontSize: '1rem',
+                    margin: 0,
+                    fontWeight: '500'
+                  }}>
+                    {selectedWorkshop.event_images.length} photo{selectedWorkshop.event_images.length !== 1 ? 's' : ''} from this workshop
+                  </p>
+                </div>
                 <div className="modal-event-images-grid">
                   {selectedWorkshop.event_images.map((imgUrl, index) => (
                     <img
@@ -723,19 +889,39 @@ const Events = () => {
               </>
             )}
 
-            {selectedWorkshop.registration_link && (
-              <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                <a
-                  href={selectedWorkshop.registration_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="action-button"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-                >
-                  Register Now <ExternalLink size={16} />
-                </a>
-              </div>
-            )}
+                         {selectedWorkshop.registration_link && isWorkshopUpcoming(selectedWorkshop.workshop_date) && (
+               <div style={{ 
+                 textAlign: 'center', 
+                 marginTop: '3rem',
+                 padding: '2.5rem',
+                 background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.08) 100%)',
+                 borderRadius: '2rem',
+                 border: '1px solid rgba(59, 130, 246, 0.25)',
+                 boxShadow: '0 15px 35px rgba(59, 130, 246, 0.15)',
+                 backdropFilter: 'blur(10px)'
+               }}>
+                 <a
+                   href={selectedWorkshop.registration_link}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="action-button"
+                   style={{ 
+                     display: 'inline-flex', 
+                     alignItems: 'center', 
+                     gap: '1rem',
+                     fontSize: '1.2rem',
+                     padding: '1rem 3rem',
+                     borderRadius: '1rem',
+                     boxShadow: '0 8px 25px rgba(59, 130, 246, 0.4)',
+                     transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                     fontWeight: '700',
+                     letterSpacing: '0.02em'
+                   }}
+                 >
+                   Register Now <ExternalLink size={20} />
+                 </a>
+               </div>
+             )}
           </div>
         </div>
       )}
