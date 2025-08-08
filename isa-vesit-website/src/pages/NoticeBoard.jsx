@@ -1,33 +1,67 @@
-import React, { useEffect } from 'react';
-import ScholarshipWinners from '../assets/images/isa_scholarship_winner.jpg';
-
-const newsItems = [
-  {
-    id: 1,
-    title: 'ISA International Scholarship Winners',
-    image: ScholarshipWinners,
-    content: (
-      <>
-        <b>Congratulations to Om Mandhane, Bipin Yadav, and Drushti Nagarkar!</b>
-        <br />
-        Each awarded <b>$2000</b> by the International Society of Automation for their excellence and dedication.<br/>
-        <span style={{color: '#4be38a', fontWeight: 500}}>ISA VESIT is proud of your achievement!</span>
-      </>
-    ),
-    date: '2024-06-01'
-  },
-  // Add more news items here
-];
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
 
 const NoticeBoard = () => {
+  const [newsItems, setNewsItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    fetchNotices();
   }, []);
+
+  const fetchNotices = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('notice_board')
+        .select('*')
+        .order('date', { ascending: false });
+
+      if (error) throw error;
+
+      // Transform data to match the expected format
+      const transformedData = data.map(item => ({
+        id: item.id,
+        title: item.title,
+        image: item.image_url,
+        content: <div dangerouslySetInnerHTML={{ __html: item.content }} />,
+        date: item.date
+      }));
+
+      setNewsItems(transformedData);
+    } catch (error) {
+      console.error('Error fetching notices:', error);
+      setError('Failed to load notices');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="notice-board-page" style={{minHeight: '100vh', background: 'linear-gradient(135deg, #060A13 0%, #1A2332 50%, #0F1B2E 100%)', padding: '2.5rem 0'}}>
       <div style={{maxWidth: 800, margin: '0 auto', padding: '0 1rem'}}>
         <h1 style={{textAlign: 'center', color: '#fff', marginBottom: '2rem', letterSpacing: '1px', fontWeight: 700, textShadow: '0 2px 16px #0f1b2e'}}>Digital Notice Board</h1>
+        
+        {loading && (
+          <div style={{textAlign: 'center', color: '#fff', fontSize: '1.2rem', padding: '2rem'}}>
+            Loading notices...
+          </div>
+        )}
+
+        {error && (
+          <div style={{textAlign: 'center', color: '#ff6b6b', fontSize: '1.2rem', padding: '2rem'}}>
+            {error}
+          </div>
+        )}
+
+        {!loading && !error && newsItems.length === 0 && (
+          <div style={{textAlign: 'center', color: '#fff', fontSize: '1.2rem', padding: '2rem'}}>
+            No notices available at the moment.
+          </div>
+        )}
+
         <div className="notice-board-list" style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
           {newsItems.map(item => (
             <div key={item.id} className="notice-board-card notice-board-card-hover" style={{
